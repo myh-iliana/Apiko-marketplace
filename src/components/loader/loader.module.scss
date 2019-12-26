@@ -1,0 +1,42 @@
+$animationDuration: 1.4s;
+$delayRange: 0.32s;
+
+.section {
+  flex: 1 1 25%;
+  margin: 2rem;
+}
+
+.container {
+  width: (2rem * 2);
+  margin: auto;
+  text-align: center;
+
+  .dotOne {
+    width: (2rem / 2);
+    height: (2rem / 2);
+    background-color: white;
+    border: 1px solid black;
+
+    border-radius: 100%;
+    display: inline-block;
+    animation: container $animationDuration ease-in-out 0s infinite both;
+  }
+
+  .dotTwo {
+    @extend .dotOne;
+    animation-delay: -$delayRange;
+  }
+  .dotThree {
+    @extend .dotOne;
+    animation-delay: (-$delayRange / 2);
+  }
+}
+
+@keyframes container {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1.0);
+  }
+}

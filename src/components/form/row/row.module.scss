@@ -1,0 +1,33 @@
+.row {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 0.75rem;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+.field {
+  border: 1px solid #DEDEE0;
+  background: #F9FAFB;
+  border-radius: 5px;
+  height: 3.7rem;
+  padding: 0 0.9rem;
+  font-size: 16px;
+  margin-bottom: 0.9rem;
+
+  &::placeholder {
+    letter-spacing: 0.4px;
+    color: rgba(102, 102, 102, 0.466455);
+  }
+}
+
+.eye {
+  position: absolute;
+  right: 1rem;
+  top: 2.4rem;
+  cursor: pointer;
+}
