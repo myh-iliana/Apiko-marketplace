@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
-import { ReactComponent as Avatar } from '../avatar.svg';
+import Avatar from '../svg/avatar';
 import { routes } from '../../../scenes/routes';
 import { useStore } from '../../../stores/create-store';
 import s from './dropdown.module.scss';
@@ -18,10 +18,10 @@ const Dropdown = () => {
 
   return (
     <div className={s.dropdown}>
-      <Avatar width="40" height="40" onClick={toggleDropdown} />
+      <Avatar size="40" onClick={toggleDropdown} />
       <div className={`${s.dropdownContent} ${show && s.show}`}>
         <div className={s.items}>
-          <Avatar width="50" height="50" />
+          <Avatar size="50" />
           <div className={s.info}>
             <span className={s.name}>{user.fullName}</span>
             <span className={s.email}>{user.email}</span>

@@ -7,17 +7,9 @@ import PropTypes from 'prop-types';
 import Row from 'src/components/form/row/row';
 import Button from 'src/components/form/button/button';
 import Name from 'src/components/form/name/name';
-// import { Error } from 'src/components/messages/messages';
-// import Loader from 'src/components/loader/loader';
-
 import s from 'src/components/form/form.module.scss';
-// import { useStore } from '../../../stores/create-store';
-// import { routes } from '../../routes';
 
 const RestoreForm = ({ onSubmit }) => {
-  // const store = useStore();
-  // const { isLoading, errorMsg: error } = store.auth;
-
   const formikProps = {
     initialValues: {
       email: '',

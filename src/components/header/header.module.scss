@@ -1,8 +1,14 @@
-.container {
+.lightTheme {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1rem 6.5rem 5rem 6.5rem;
+  padding: 1rem 6.5rem 5rem 6.5rem;
+}
+
+.container {
+  @extend .lightTheme;
+  background: linear-gradient(180deg, #090810 0%, #171236 100%);
+  color: white;
 }
 
 .nav {

@@ -15,13 +15,17 @@ export const RootStore = t
         const token = localStorage.getItem('_token');
         Api.Auth.setToken(token);
 
-        if (token) {
-          store.auth.setIsLoggedIn(true);
-          const res = yield Api.User.getUser(token);
-          store.viewer.setViewer(res.data);
+        if (!token) {
+          store.auth.setIsLoggedIn(false);
+          Api.Auth.logout();
         }
+
+        store.auth.setIsLoggedIn(true);
+        const res = yield Api.User.getUser(token);
+        store.viewer.setViewer(res.data);
       } catch (err) {
-        console.log(err);
+        store.auth.setIsLoggedIn(false);
+        Api.Auth.logout();
       }
     }),
   }));
