@@ -19,11 +19,11 @@ export const RootStore = t
           store.auth.setIsLoggedIn(true);
           const res = yield Api.User.getUser(token);
           store.viewer.setViewer(res.data);
+        } else {
+          store.auth.setIsLoggedIn(false);
+          store.viewer.setViewer(undefined);
+          Api.Auth.logout();
         }
-
-        store.auth.setIsLoggedIn(false);
-        store.viewer.setViewer(undefined);
-        Api.Auth.logout();
       } catch (err) {
         store.auth.setIsLoggedIn(false);
         store.viewer.setViewer(undefined);

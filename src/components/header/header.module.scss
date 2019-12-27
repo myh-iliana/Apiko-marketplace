@@ -8,7 +8,10 @@
 .container {
   @extend .lightTheme;
   background: linear-gradient(180deg, #090810 0%, #171236 100%);
-  color: white;
+  li {
+    color: white;
+
+  }
 }
 
 .nav {

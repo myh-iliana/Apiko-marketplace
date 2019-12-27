@@ -23,24 +23,36 @@ export const routes = {
   editAccount: '/account/edit',
 };
 
-const Router = () => {
-  const store = useStore();
-  const { isLoggedIn } = store.auth;
+const PrivateRoute = observer(
+  ({ component: Component, ...props }) => {
+    const store = useStore();
+    const { isLoggedIn } = store.auth;
 
+    return (
+      <Route
+        {...props}
+        render={({ ...renderProps }) =>
+          isLoggedIn ? (
+            <Redirect to={routes.home} />
+          ) : (
+            <Component {...renderProps} />
+          )
+        }
+      />
+    );
+  },
+);
+
+const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={routes.home} component={Home} />
-        <Route
-          path={routes.auth}
-          render={() =>
-            isLoggedIn ? <Redirect to={routes.home} /> : <Auth />
-          }
-        />
+        <PrivateRoute path={routes.auth} component={Auth} />
       </Switch>
       <Footer />
     </BrowserRouter>
   );
 };
 
-export default observer(Router);
+export default Router;
