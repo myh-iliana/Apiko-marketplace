@@ -16,6 +16,8 @@ const App = () => {
 
   if (loading) return <Loader size="6" align />;
 
+  console.log(JSON.stringify(store, null, 2));
+
   return (
     <div>
       <Provider value={store}>

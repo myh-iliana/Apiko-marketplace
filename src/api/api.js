@@ -6,10 +6,17 @@ export const Auth = {
   setToken(token) {
     this._token = token;
     localStorage.setItem('_token', token);
+    axios.defaults.headers.Authorization = `Bearer ${token}`;
   },
 
   isLoggedIn() {
     return !!this._token;
+  },
+
+  logout() {
+    this._token = null;
+    localStorage.removeItem('_token');
+    axios.defaults.headers.Authorization = undefined;
   },
 
   login({ email, password }) {
@@ -29,11 +36,7 @@ export const Auth = {
 };
 
 export const User = {
-  getUser(token) {
-    return axios.get('/api/account', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  getUser() {
+    return axios.get('/api/account');
   },
 };

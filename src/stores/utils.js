@@ -6,7 +6,8 @@ export function AsyncModel(thunk, auto = true) {
       isLoading: false,
       isError: false,
       errorMsg: t.maybeNull(t.string),
-    })    .actions((store) => ({
+    })
+    .actions((store) => ({
       start() {
         store.isLoading = true;
         store.isError = false;

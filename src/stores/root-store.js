@@ -7,7 +7,7 @@ import { ViewerStore } from './viewer-store';
 export const RootStore = t
   .model('RootStore', {
     auth: t.optional(AuthStore, {}),
-    vieer: t.optional(ViewerStore, {}),
+    viewer: t.optional(ViewerStore, {}),
   })
   .actions((store) => ({
     bootstrap: flow(function* bootstrap() {
@@ -16,6 +16,7 @@ export const RootStore = t
         Api.Auth.setToken(token);
 
         if (token) {
+          store.auth.setIsLoggedIn(true);
           const res = yield Api.User.getUser(token);
           store.viewer.setViewer(res.data);
         }

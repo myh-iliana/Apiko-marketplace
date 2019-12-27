@@ -23,7 +23,6 @@ const LoginForm = ({ onSubmit }) => {
     check: error === 'NOT_FOUND' || error === 'WRONG_PASSWORD',
     msg: 'Wrong email and/or password',
   };
-
   const formikProps = {
     initialValues: {
       email: '',

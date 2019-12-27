@@ -13,6 +13,8 @@ export const routes = {
   register: '/auth/register',
   restore: '/restore',
   savedProducts: '/products/saved',
+  account: '/account',
+  editAccount: '/account/edit',
 };
 
 const Router = () => {

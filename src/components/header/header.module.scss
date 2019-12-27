@@ -8,6 +8,7 @@
 .nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 0.9rem;
   text-transform: uppercase;
 
@@ -15,17 +16,23 @@
     text-decoration: none;
     margin-left: 2.2rem;
     color: #2B2B2B;
-    line-height: 31px;
   }
 }
 
 .sell {
-  padding: 0 3.1rem;
+  padding: 0.6rem 3.1rem;
   background: #349A89;
   border-radius: 4px;
   color: white;
 }
 
-.icon {
-  margin-top: 4px;
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+}
+
+.like {
+  width: 1.125rem;
+  height: 1rem;
 }
