@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { Provider, createStore } from 'src/stores/create-store';
 import Router from '../../scenes/routes';
 
 import './app.css';
-import Loader from '../loader/loader';
 
 const store = createStore();
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    store.bootstrap().then(() => setLoading(false));
+    store.bootstrap();
   }, []);
-
-  if (loading) return <Loader size="6" align />;
 
   console.log(JSON.stringify(store, null, 2));
 

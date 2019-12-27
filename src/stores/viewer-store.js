@@ -3,7 +3,7 @@ import { UserModel } from './user-model';
 
 export const ViewerStore = t
   .model('ViewerStore', {
-    user: t.maybe(UserModel),
+    user: t.maybeNull(UserModel),
   })
   .actions((store) => ({
     setViewer(user) {

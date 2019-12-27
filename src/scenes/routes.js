@@ -5,11 +5,10 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
+import { observer } from 'mobx-react';
 
 import Auth from './auth/auth';
-import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
-import RestoreForm from './restore/restore';
 import Home from './home/home';
 import { useStore } from '../stores/create-store';
 
@@ -35,7 +34,7 @@ const Router = () => {
         <Route
           path={routes.auth}
           render={() =>
-            isLoggedIn ? <Auth /> : <Redirect to={routes.home} />
+            isLoggedIn ? <Redirect to={routes.home} /> : <Auth />
           }
         />
       </Switch>
@@ -44,4 +43,4 @@ const Router = () => {
   );
 };
 
-export default Router;
+export default observer(Router);

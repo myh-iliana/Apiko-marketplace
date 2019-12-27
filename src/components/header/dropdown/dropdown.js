@@ -14,7 +14,10 @@ const Dropdown = () => {
   const { logout } = store.auth;
 
   const toggleDropdown = () => setShow(!show);
-  const logOut = () => logout();
+  const logOut = () => {
+    logout();
+    toggleDropdown();
+  };
 
   return (
     <div className={s.dropdown}>
@@ -35,11 +38,23 @@ const Dropdown = () => {
             </Link>
           </div>
         </div>
-        <div className={s.btns} onClick={toggleDropdown}>
-          <Link to={routes.editAccount} className={s.btn}>
+        <div className={s.btns}>
+          <Link
+            to={routes.editAccount}
+            href={routes.editAccount}
+            onClick={toggleDropdown}
+            className={s.btn}
+            role="link"
+          >
             Edit profile
           </Link>
-          <Link to={routes.login} className={s.btn} onClick={logOut}>
+          <Link
+            to={routes.login}
+            href={routes.login}
+            className={s.btn}
+            onClick={logOut}
+            role="link"
+          >
             Logout
           </Link>
         </div>
