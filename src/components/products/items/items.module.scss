@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 56rem;
+  margin: 0 auto;
+  justify-content: flex-start;
+}
+
+.item {
+  width: 13rem;
+  height: 13.3rem;
+  background: #FFFFFF;
+  border: 1px solid #E4E4E4;
+  box-shadow: 0px 4px 14px rgba(121, 121, 121, 0.0527344);
+  border-radius: 4px;
+  padding: 3.5px;
+  margin: 0.3rem 0.2rem;
+}
+
+.img {
+  height: 9.25rem;
+  width: 100%;
+}
+
+.name {
+  margin-top: 0.3rem;
+  font-size: 0.94rem;
+  color: #373738;
+}
+
+.price {
+  margin-top: 0.7rem;
+  font-size: 1.125rem;
+  color: #101010;
+  font-weight: bold;
+}

@@ -50,7 +50,7 @@ const Router = () => {
         <Route exact path={routes.home} component={Home} />
         <PrivateRoute path={routes.auth} component={Auth} />
       </Switch>
-      <Footer />
+      {/*<Footer />*/}
     </BrowserRouter>
   );
 };

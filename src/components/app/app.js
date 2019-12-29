@@ -12,8 +12,6 @@ const App = () => {
     store.bootstrap();
   }, []);
 
-  console.log(JSON.stringify(store, null, 2));
-
   return (
     <div>
       <Provider value={store}>

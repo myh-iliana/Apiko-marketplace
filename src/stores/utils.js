@@ -1,6 +1,8 @@
 import {
   applySnapshot,
   onSnapshot,
+  getParent,
+  getRoot,
   types as t,
 } from 'mobx-state-tree';
 
@@ -30,7 +32,11 @@ export function AsyncModel(thunk, auto = true) {
       },
 
       run(...args) {
-        const promise = thunk(...args)(store);
+        const promise = thunk(...args)(
+          store,
+          getParent(store),
+          getRoot(store),
+        );
 
         if (auto) {
           return store._auto(promise);
