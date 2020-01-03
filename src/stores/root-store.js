@@ -3,13 +3,16 @@ import { flow, types as t } from 'mobx-state-tree';
 import Api from 'src/api';
 import { AuthStore } from './auth/auth-store';
 import { ViewerStore } from './viewer-store';
-import { LatestProductsStore } from './products/latest-store-products';
+import { LatestProductsStore } from './products/latest-products-store';
+import { EntitiesStore } from './entities-store';
 
 export const RootStore = t
   .model('RootStore', {
     auth: t.optional(AuthStore, {}),
     viewer: t.optional(ViewerStore, {}),
     latestProducts: t.optional(LatestProductsStore, {}),
+
+    entities: t.optional(EntitiesStore, {}),
   })
   .actions((store) => ({
     bootstrap: flow(function* bootstrap() {

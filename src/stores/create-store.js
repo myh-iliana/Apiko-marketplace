@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
+import { onSnapshot } from 'mobx-state-tree';
 import { RootStore } from './root-store';
 import { createPersist } from './utils';
-import { onSnapshot } from 'mobx-state-tree';
 
 export const createStore = () => {
   const root = RootStore.create();
@@ -9,9 +9,9 @@ export const createStore = () => {
   const persist = createPersist(root);
   persist.rehydrate();
 
-  onSnapshot(root, (snapshot) =>
-    console.log(JSON.stringify(snapshot, null, 2)),
-  );
+  // onSnapshot(root, (snapshot) =>
+  //   console.log(JSON.stringify(snapshot, null, 2)),
+  // );
 
   return root;
 };
@@ -24,7 +24,7 @@ export const Provider = MSTContext.Provider;
 export const useStore = (mapStateToProps) => {
   const store = useContext(MSTContext);
 
-  if (mapStateToProps === 'function') {
+  if (typeof mapStateToProps === 'function') {
     return mapStateToProps(store);
   }
 

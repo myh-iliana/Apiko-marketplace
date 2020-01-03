@@ -5,6 +5,7 @@ import Header from '../../components/header/header';
 import { useStore } from '../../stores/create-store';
 import Loader from '../../components/loader/loader';
 import Items from '../../components/products/items/items';
+import s from './home.module.scss';
 
 const Home = () => {
   const store = useStore();
@@ -21,7 +22,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className={s.container}>
         <Items />
       </main>
     </>

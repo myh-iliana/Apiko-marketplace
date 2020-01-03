@@ -6,7 +6,7 @@ import { AsyncModel } from '../utils';
 
 export const LatestProductsStore = t
   .model('LatestProductsStore', {
-    items: t.array(ProductModel),
+    items: t.array(t.reference(ProductModel)),
     fetchLatest: AsyncModel(fetchLatest),
   })
   .actions((store) => ({
@@ -16,9 +16,14 @@ export const LatestProductsStore = t
   }));
 
 function fetchLatest() {
-  return async function fetchLatestFlow(flow, parentStore) {
+  return async function fetchLatestFlow(flow, parentStore, root) {
     const res = await Api.Products.fetchLatest();
 
-    parentStore.setItems(res.data);
+    const ids = res.data.map((item) => {
+      root.entities.products.add(item.id, item);
+      return item.id;
+    });
+
+    parentStore.setItems(ids);
   };
 }

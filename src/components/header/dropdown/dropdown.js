@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
-import Avatar from '../svg/avatar';
+import Avatar from '../../svg/avatar';
 import { routes } from '../../../scenes/routes';
 import { useStore } from '../../../stores/create-store';
 import s from './dropdown.module.scss';

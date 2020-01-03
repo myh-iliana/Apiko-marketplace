@@ -64,6 +64,7 @@ export function createPersist(store) {
   const KEY = '_persist';
 
   onSnapshot(store, (snapshot) => {
+    // eslint-disable-next-line no-undef
     localStorage.setItem(
       KEY,
       JSON.stringify({
@@ -78,6 +79,7 @@ export function createPersist(store) {
   });
 
   function rehydrate() {
+    // eslint-disable-next-line no-undef
     const snapshot = localStorage.getItem(KEY);
 
     if (snapshot) {
@@ -86,4 +88,19 @@ export function createPersist(store) {
   }
 
   return { rehydrate };
+}
+
+export function createCollection(ofModel, asyncModels = {}) {
+  const collection = t
+    .model('CollectionModel', {
+      collection: t.map(ofModel),
+      ...asyncModels,
+    })
+    .actions((store) => ({
+      add(key, value) {
+        store.collection.set(String(key), value);
+      },
+    }));
+
+  return t.optional(collection, {});
 }

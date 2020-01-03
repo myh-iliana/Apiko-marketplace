@@ -8,6 +8,7 @@ import {
 import { observer } from 'mobx-react';
 
 import Auth from './auth/auth';
+import ProductView from './product-view/product-view';
 import Footer from '../components/footer/footer';
 import Home from './home/home';
 import { useStore } from '../stores/create-store';
@@ -18,6 +19,7 @@ export const routes = {
   login: '/auth/login',
   register: '/auth/register',
   restore: '/auth/restore',
+  product: '/products/:productId',
   savedProducts: '/products/saved',
   account: '/account',
   editAccount: '/account/edit',
@@ -49,6 +51,7 @@ const Router = () => {
       <Switch>
         <Route exact path={routes.home} component={Home} />
         <PrivateRoute path={routes.auth} component={Auth} />
+        <Route path={routes.product} component={ProductView} />
       </Switch>
       {/*<Footer />*/}
     </BrowserRouter>
