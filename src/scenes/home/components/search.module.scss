@@ -11,6 +11,7 @@
 
 .container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   width: 900px;
   box-sizing: border-box;
@@ -39,9 +40,15 @@
   font-size: 0.9rem;
 }
 
+.price {
+  display: flex;
+  align-items: center;
+}
+
 .input {
   @include input-style;
   padding: 0 10px;
+  width: 9rem;
 }
 
 .line {
@@ -50,4 +57,41 @@
   width: 12px;
   margin: 0 7px;
   background: #DEDEE0;
+}
+
+@media only screen and (max-width: 1000px) {
+  .container {
+    width: 700px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .container {
+    width: 500px;
+    > * {
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .container {
+    width: 224px;
+  }
+
+  .select {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .price {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .line {
+    margin: 7px 0;
+  }
 }

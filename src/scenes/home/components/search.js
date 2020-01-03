@@ -12,17 +12,19 @@ const Search = () => {
         <option className={s.option}>option2</option>
         <option className={s.option}>option3</option>
       </select>
-      <input
-        type="text"
-        className={s.input}
-        placeholder="Price from (USD)"
-      />{' '}
-      <div className={s.line}></div>
-      <input
-        type="text"
-        className={s.input}
-        placeholder="Price to (USD)"
-      />
+      <div className={s.price}>
+        <input
+          type="text"
+          className={s.input}
+          placeholder="Price from (USD)"
+        />
+        <div className={s.line} />
+        <input
+          type="text"
+          className={s.input}
+          placeholder="Price to (USD)"
+        />
+      </div>
     </div>
   );
 };
