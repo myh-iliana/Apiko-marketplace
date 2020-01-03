@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { routes } from '../../scenes/routes';
 import { useStore } from '../../stores/create-store';
 import Dropdown from './dropdown/dropdown';
+import Search from './search/search';
 import Logo from '../svg/logo';
 import Saved from '../svg/saved';
 import Inbox from '../svg/inbox';
@@ -28,26 +29,32 @@ const Header = ({ light = false }) => {
   );
 
   return (
-    <div className={light ? s.lightTheme : s.container}>
-      <div>
-        <Logo color={light ? '#262525' : 'white'} />
+    <div className={light ? s.lightTheme : s.darkTheme}>
+      <div className={s.navContainer}>
+        <div>
+          <Logo color={light ? '#262525' : 'white'} />
+        </div>
+        <ul className={s.nav}>
+          <Link to={routes.savedProducts} href={routes.savedProducts}>
+            <li className={s.sell}>SELL</li>
+          </Link>
+          {render}
+          <Link to={routes.savedProducts} href={routes.savedProducts}>
+            <li className={s.like}>
+              <Saved
+                fullFill={pathname === routes.savedProducts && true}
+                color={light ? '#2E2E2E' : 'white'}
+                width="1.25rem"
+                height="1.1875rem"
+              />
+            </li>
+          </Link>
+        </ul>
       </div>
-      <ul className={s.nav}>
-        <Link to={routes.savedProducts} href={routes.savedProducts}>
-          <li className={s.sell}>SELL</li>
-        </Link>
-        {render}
-        <Link to={routes.savedProducts} href={routes.savedProducts}>
-          <li className={s.like}>
-            <Saved
-              fullFill={pathname === routes.savedProducts && true}
-              color={light ? '#2E2E2E' : 'white'}
-              width="1.25rem"
-              height="1.1875rem"
-            />
-          </li>
-        </Link>
-      </ul>
+
+      <div className={s.search}>
+        <Search />
+      </div>
     </div>
   );
 };

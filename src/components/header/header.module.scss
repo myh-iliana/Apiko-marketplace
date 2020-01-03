@@ -1,17 +1,19 @@
 .lightTheme {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 6.5rem 5rem 6.5rem;
+  background: none;
 }
 
-.container {
-  @extend .lightTheme;
+.darkTheme {
   background: linear-gradient(180deg, #090810 0%, #171236 100%);
   li {
     color: white;
-
   }
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 6.5rem 2.7rem 6.5rem;
 }
 
 .nav {
@@ -44,4 +46,9 @@
 .like {
   width: 1.125rem;
   height: 1rem;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
 }
