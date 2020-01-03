@@ -13,7 +13,7 @@ import Inbox from '../svg/inbox';
 import Ellipse from '../svg/ellipse';
 import s from './header.module.scss';
 
-const Header = ({ light = false }) => {
+const Header = ({ light = false, search = true }) => {
   const store = useStore();
   const { isLoggedIn } = store.auth;
   const { pathname } = useLocation();
@@ -52,15 +52,18 @@ const Header = ({ light = false }) => {
         </ul>
       </div>
 
-      <div className={s.search}>
-        <Search />
-      </div>
+      {search && (
+        <div className={s.search}>
+          <Search />
+        </div>
+      )}
     </div>
   );
 };
 
 Header.propTypes = {
   light: PropTypes.bool,
+  search: PropTypes.bool,
 };
 
 export default observer(Header);

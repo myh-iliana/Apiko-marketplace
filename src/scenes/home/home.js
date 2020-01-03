@@ -5,6 +5,7 @@ import Header from '../../components/header/header';
 import { useStore } from '../../stores/create-store';
 import Loader from '../../components/loader/loader';
 import Items from '../../components/products/items/items';
+import Search from './components/search';
 import s from './home.module.scss';
 
 const Home = () => {
@@ -23,6 +24,7 @@ const Home = () => {
     <>
       <Header />
       <main className={s.container}>
+        <Search />
         <Items />
       </main>
     </>
