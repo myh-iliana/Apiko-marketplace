@@ -39,6 +39,10 @@ export const User = {
   getUser() {
     return axios.get('/api/account');
   },
+
+  getCurrentUser(id) {
+    return axios.get(`/api/users/${id}`);
+  },
 };
 
 export const Products = {

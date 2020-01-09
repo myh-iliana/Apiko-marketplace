@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import Header from '../../components/header/header';
 import { useStore } from '../../stores/create-store';
 import Loader from '../../components/loader/loader';
-import Items from '../../components/products/items/items';
+import Items from '../../components/products/list/list';
 import Search from './components/search';
 import s from './home.module.scss';
 

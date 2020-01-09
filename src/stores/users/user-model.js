@@ -8,5 +8,5 @@ export const UserModel = t.model('UserModel', {
   phone: t.maybeNull(t.string),
   createdAt: t.string,
   updatedAt: t.string,
-  email: t.string,
+  email: t.optional(t.string, ''),
 });

@@ -2,7 +2,7 @@ import { flow, types as t } from 'mobx-state-tree';
 
 import Api from 'src/api';
 import { AuthStore } from './auth/auth-store';
-import { ViewerStore } from './viewer-store';
+import { ViewerStore } from './users/viewer-store';
 import { LatestProductsStore } from './products/latest-products-store';
 import { EntitiesStore } from './entities-store';
 

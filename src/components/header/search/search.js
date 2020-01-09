@@ -5,15 +5,23 @@ import s from './search.module.scss';
 const Search = () => {
   return (
     <div className={s.container}>
-      <input
-        type="text"
-        className={s.input}
-        placeholder="Search products by name"
-      />
-      <input type="text" className={s.input} placeholder="Location" />
-      <button type="submit" className={s.btn}>
-        Search
-      </button>
+      <form className={s.container}>
+        <input
+          type="search"
+          name="search"
+          className={s.input}
+          placeholder="Search products by name"
+          autoComplete="on"
+        />
+        <input
+          type="text"
+          className={s.input}
+          placeholder="Location"
+        />
+        <button type="submit" className={s.btn}>
+          Search
+        </button>
+      </form>
     </div>
   );
 };

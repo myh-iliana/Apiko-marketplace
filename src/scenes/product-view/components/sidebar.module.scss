@@ -1,0 +1,61 @@
+.sidebar {
+  width: 259px;
+  flex-grow: 1;
+  padding: 4px;
+}
+
+.author {
+  background: linear-gradient(#349A89 0%, #349A89 3.125rem, white 3.125rem, white 100%);
+  padding: 0.875rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.avatar {
+  width: 4.2rem;
+  height: 4.2rem;
+  background-color: lightgray;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.authorName {
+  color: #2B2B2B;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.authorLocation {
+  color: rgba(43, 43, 43, 0.499918);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.btns {
+  > * {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    padding: 1.1rem 0;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+    background: rgb(52, 154, 137);
+
+    &:last-child {
+      background: white;
+      color: #535353;
+      display: flex;
+      justify-content: center;
+
+      :last-child {
+        margin-left: 0.8rem;
+      }
+    }
+  }
+}

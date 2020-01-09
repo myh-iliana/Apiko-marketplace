@@ -4,7 +4,7 @@ import s from './search.module.scss';
 const Search = () => {
   return (
     <div className={s.container}>
-      <select className={s.select}>
+      <select className={s.select} value="">
         <option selected hidden disabled>
           Choose Category
         </option>
