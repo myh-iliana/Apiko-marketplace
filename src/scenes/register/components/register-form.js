@@ -18,7 +18,7 @@ import { routes } from '../../routes';
 const RegisterForm = ({ onSubmit }) => {
   const store = useStore();
   const { isLoading, errorMsg: error } = store.auth.register;
-  const emsilExist = {
+  const emailExist = {
     check: error === 'EMAIL_ALREADY_USED',
     msg: 'Email already used',
   };
@@ -69,7 +69,7 @@ const RegisterForm = ({ onSubmit }) => {
                   name="email"
                   placeholder="Example@gmail.com"
                 />
-                {emsilExist.check && <Error>{emsilExist.msg}</Error>}
+                {emailExist.check && <Error>{emailExist.msg}</Error>}
                 <Row
                   label="full name"
                   type="text"

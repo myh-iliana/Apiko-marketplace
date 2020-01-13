@@ -22,7 +22,7 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      <Header search />
       <main className={s.container}>
         <Search />
         <Items />

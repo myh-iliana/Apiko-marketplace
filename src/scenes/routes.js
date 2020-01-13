@@ -9,8 +9,9 @@ import { observer } from 'mobx-react';
 
 import Auth from './auth/auth';
 import ProductView from './product-view/product-view';
-import Footer from '../components/footer/footer';
 import Home from './home/home';
+import Edit from './edit/edit';
+import Footer from '../components/footer/footer';
 import { useStore } from '../stores/create-store';
 
 export const routes = {
@@ -52,6 +53,7 @@ const Router = () => {
         <Route exact path={routes.home} component={Home} />
         <PrivateRoute path={routes.auth} component={Auth} />
         <Route path={routes.product} component={ProductView} />
+        <Route path={routes.editAccount} component={Edit} />
       </Switch>
       {/*<Footer />*/}
     </BrowserRouter>

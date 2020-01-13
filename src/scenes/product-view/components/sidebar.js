@@ -28,14 +28,14 @@ const Sidebar = ({ id }) => {
     return <h2>Cannot find owner</h2>;
   }
 
-  const { fullName, location, avtar } = owner;
+  const { fullName, location, avatar } = owner;
 
   return (
     <div className={s.sidebar}>
       <div className={s.author}>
         <div
           className={s.avatar}
-          style={{ backgroundImage: `url(${avtar})` }}
+          style={{ backgroundImage: `url(${avatar})` }}
         />
         <div className={s.authorName}>{fullName}</div>
         {location && (

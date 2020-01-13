@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import axios from 'axios';
 
 export const Auth = {
@@ -42,6 +43,21 @@ export const User = {
 
   getCurrentUser(id) {
     return axios.get(`/api/users/${id}`);
+  },
+
+  edit({ fullName, phone, avatar, location }) {
+    return axios.put('/api/account', {
+      fullName,
+      phone,
+      avatar,
+      location,
+    });
+  },
+};
+
+export const File = {
+  upload(file) {
+    return axios.post(`/api/upload/images`, file);
   },
 };
 

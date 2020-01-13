@@ -24,6 +24,7 @@ const Row = ({ label, type, ...props }) => {
           {...props}
           type={fieldType}
           className={s.field}
+          value={meta.value}
         />
         {isPassword ? (
           <Eye

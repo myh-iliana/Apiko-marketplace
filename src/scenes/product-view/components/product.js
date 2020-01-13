@@ -70,7 +70,7 @@ const Product = () => {
             <span className={s.grey}>{location}</span>
           </div>
           <div className={s.line} />
-          <div className={s.descr}>{description}</div>
+          <pre className={s.descr}>{description}</pre>
         </div>
       </div>
 

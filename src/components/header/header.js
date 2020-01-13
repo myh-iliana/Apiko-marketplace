@@ -13,7 +13,7 @@ import Inbox from '../svg/inbox';
 import Ellipse from '../svg/ellipse';
 import s from './header.module.scss';
 
-const Header = ({ light = false, search = true }) => {
+const Header = ({ light = false, search = false }) => {
   const store = useStore();
   const { isLoggedIn } = store.auth;
   const { pathname } = useLocation();
@@ -31,9 +31,9 @@ const Header = ({ light = false, search = true }) => {
   return (
     <div className={light ? s.lightTheme : s.darkTheme}>
       <div className={s.navContainer}>
-        <div>
+        <Link to={routes.home} href={routes.home}>
           <Logo color={light ? '#262525' : 'white'} />
-        </div>
+        </Link>
         <ul className={s.nav}>
           <Link to={routes.savedProducts} href={routes.savedProducts}>
             <li className={s.sell}>SELL</li>
