@@ -4,6 +4,7 @@ import Api from 'src/api';
 import { AuthStore } from './auth/auth-store';
 import { ViewerStore } from './users/viewer-store';
 import { LatestProductsStore } from './products/latest-products-store';
+import { SavedProductsStore } from './products/saved-products-store';
 import { EntitiesStore } from './entities-store';
 import { FileStore } from './file-store';
 
@@ -11,7 +12,10 @@ export const RootStore = t
   .model('RootStore', {
     auth: t.optional(AuthStore, {}),
     viewer: t.optional(ViewerStore, {}),
+
     latestProducts: t.optional(LatestProductsStore, {}),
+    savedProducts: t.optional(SavedProductsStore, {}),
+
     file: t.optional(FileStore, {}),
 
     entities: t.optional(EntitiesStore, {}),

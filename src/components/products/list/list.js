@@ -1,14 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
 
-import { useStore } from '../../../stores/create-store';
 import Item from '../item/item';
 import s from './list.module.scss';
 
-const List = () => {
-  const store = useStore();
-  const { items } = store.latestProducts;
-
+const List = ({ items }) => {
   return (
     <ul className={s.list}>
       {items.map((item) => {
@@ -20,6 +17,10 @@ const List = () => {
       })}
     </ul>
   );
+};
+
+List.propTypes = {
+  items: PropTypes.array,
 };
 
 export default observer(List);

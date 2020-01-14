@@ -4,13 +4,13 @@ import { observer } from 'mobx-react';
 import Header from '../../components/header/header';
 import { useStore } from '../../stores/create-store';
 import Loader from '../../components/loader/loader';
-import Items from '../../components/products/list/list';
+import List from '../../components/products/list/list';
 import Search from './components/search';
 import s from './home.module.scss';
 
 const Home = () => {
   const store = useStore();
-  const { fetchLatest, isLoading } = store.latestProducts;
+  const { fetchLatest, isLoading, items } = store.latestProducts;
 
   useEffect(() => {
     fetchLatest.run();
@@ -25,7 +25,7 @@ const Home = () => {
       <Header search />
       <main className={s.container}>
         <Search />
-        <Items />
+        <List items={items} />
       </main>
     </>
   );

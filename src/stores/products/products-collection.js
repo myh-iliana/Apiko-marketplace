@@ -4,6 +4,8 @@ import Api from '../../api';
 
 export const productsCollection = createCollection(ProductModel, {
   getProduct: AsyncModel(getProduct),
+  save: AsyncModel(save),
+  removeFromSaved: AsyncModel(removeFromSaved),
 });
 
 function getProduct(id) {
@@ -11,5 +13,33 @@ function getProduct(id) {
     const res = await Api.Products.fetchProduct(id);
 
     root.entities.products.add(res.data.id, res.data);
+  };
+}
+
+function save(id) {
+  return async function saveProductFlow(flow, parent, root) {
+    const item = root.entities.products.collection.get(id);
+    item.setSaved();
+    const res = await Api.Products.save(id);
+
+    if (!res.data.success) {
+      item.removeSaved();
+    }
+  };
+}
+
+function removeFromSaved(id) {
+  return async function removeFromSavedProductFlow(
+    flow,
+    parentStore,
+    root,
+  ) {
+    const item = root.entities.products.collection.get(id);
+    item.removeSaved();
+    const res = await Api.Products.removeFromSaved(id);
+
+    if (!res.data.success) {
+      item.setSaved();
+    }
   };
 }

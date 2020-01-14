@@ -13,6 +13,7 @@ import Home from './home/home';
 import Edit from './edit/edit';
 import Footer from '../components/footer/footer';
 import { useStore } from '../stores/create-store';
+import SavedProducts from './saved-products/saved-products';
 
 export const routes = {
   home: '/',
@@ -21,12 +22,33 @@ export const routes = {
   register: '/auth/register',
   restore: '/auth/restore',
   product: '/products/:productId',
-  savedProducts: '/products/saved',
+  savedProducts: '/saved',
   account: '/account',
   editAccount: '/account/edit',
+  sell: '/sell',
 };
 
 const PrivateRoute = observer(
+  ({ component: Component, ...props }) => {
+    const store = useStore();
+    const { isLoggedIn } = store.auth;
+
+    return (
+      <Route
+        {...props}
+        render={({ ...renderProps }) =>
+          isLoggedIn ? (
+            <Component {...renderProps} />
+          ) : (
+            <Redirect to={routes.login} />
+          )
+        }
+      />
+    );
+  },
+);
+
+const LoggedInPrivateRoute = observer(
   ({ component: Component, ...props }) => {
     const store = useStore();
     const { isLoggedIn } = store.auth;
@@ -51,9 +73,13 @@ const Router = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path={routes.home} component={Home} />
-        <PrivateRoute path={routes.auth} component={Auth} />
+        <LoggedInPrivateRoute path={routes.auth} component={Auth} />
+        <PrivateRoute path={routes.editAccount} component={Edit} />
         <Route path={routes.product} component={ProductView} />
-        <Route path={routes.editAccount} component={Edit} />
+        <PrivateRoute
+          path={routes.savedProducts}
+          component={SavedProducts}
+        />
       </Switch>
       {/*<Footer />*/}
     </BrowserRouter>

@@ -63,10 +63,30 @@ export const File = {
 
 export const Products = {
   fetchLatest() {
-    return axios.get('/api/products/latest');
+    return axios.get('/api/products/latest', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('_token')}`,
+      },
+    });
+  },
+
+  fetchSaved() {
+    return axios.get('/api/products/saved', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('_token')}`,
+      },
+    });
   },
 
   fetchProduct(id) {
     return axios.get(`/api/products/${id}`);
+  },
+
+  save(id) {
+    return axios.post(`/api/products/${id}/saved`);
+  },
+
+  removeFromSaved(id) {
+    return axios.delete(`/api/products/${id}/saved`);
   },
 };

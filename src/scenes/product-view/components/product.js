@@ -5,22 +5,20 @@ import { observer } from 'mobx-react';
 import { useStore } from 'src/stores/create-store';
 import { ReactComponent as Location } from 'src/components/svg/location.svg';
 import Loader from '../../../components/loader/loader';
-import s from './product.module.scss';
 import Sidebar from './sidebar';
+import s from './product.module.scss';
 
 const Product = () => {
-  const params = useParams();
+  const { productId } = useParams();
   const store = useStore();
-  const product = store.entities.products.collection.get(
-    params.productId,
-  );
+  const product = store.entities.products.collection.get(productId);
   // eslint-disable-next-line prefer-destructuring
   const getProduct = store.entities.products.getProduct;
   const loading = store.entities.products.getProduct.isLoading;
 
   useEffect(() => {
     if (!product) {
-      getProduct.run(params.productId);
+      getProduct.run(productId);
     }
   }, []);
 

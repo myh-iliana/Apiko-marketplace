@@ -35,7 +35,7 @@ const Header = ({ light = false, search = false }) => {
           <Logo color={light ? '#262525' : 'white'} />
         </Link>
         <ul className={s.nav}>
-          <Link to={routes.savedProducts} href={routes.savedProducts}>
+          <Link to={routes.sell} href={routes.sell}>
             <li className={s.sell}>SELL</li>
           </Link>
           {render}
