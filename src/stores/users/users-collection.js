@@ -14,6 +14,5 @@ function getUser(id) {
     } catch (e) {
       console.log(e);
     }
-
   };
 }

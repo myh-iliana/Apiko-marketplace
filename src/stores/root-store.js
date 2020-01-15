@@ -7,7 +7,7 @@ import { LatestProductsStore } from './products/latest-products-store';
 import { SavedProductsStore } from './products/saved-products-store';
 import { UserProductsStore } from './products/user-products-store';
 import { EntitiesStore } from './entities-store';
-import { FileStore } from './file-store';
+import { FilesStore } from './files/files-store';
 
 export const RootStore = t
   .model('RootStore', {
@@ -18,7 +18,7 @@ export const RootStore = t
     savedProducts: t.optional(SavedProductsStore, {}),
     userProducts: t.optional(UserProductsStore, {}),
 
-    file: t.optional(FileStore, {}),
+    files: t.optional(FilesStore, {}),
 
     entities: t.optional(EntitiesStore, {}),
   })

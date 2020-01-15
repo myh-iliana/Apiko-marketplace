@@ -7,13 +7,14 @@ import {
 } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
+import { useStore } from '../stores/create-store';
 import Auth from './auth/auth';
-import ProductView from './product-view/product-view';
 import Home from './home/home';
 import Edit from './edit/edit';
 import Account from './account/account';
-import { useStore } from '../stores/create-store';
+import ProductView from './product-view/product-view';
 import SavedProducts from './saved-products/saved-products';
+import AddProduct from './add-product/add-product';
 
 export const routes = {
   home: '/',
@@ -28,7 +29,7 @@ export const routes = {
   userFeedbacks: `/profile/:userId/feedbacks`,
   userSales: `/profile/:userId/sales`,
   editAccount: '/account/edit',
-  sell: '/sell',
+  addProduct: '/product/add',
 };
 
 const PrivateRoute = observer(
@@ -79,10 +80,15 @@ const Router = () => {
         <LoggedInPrivateRoute path={routes.auth} component={Auth} />
         <PrivateRoute path={routes.editAccount} component={Edit} />
         <PrivateRoute path={routes.account} component={Account} />
-        <Route path={routes.product} component={ProductView} />
+        <Route exact path={routes.product} component={ProductView} />
         <PrivateRoute
           path={routes.savedProducts}
           component={SavedProducts}
+        />
+        <PrivateRoute
+          exact
+          path={routes.addProduct}
+          component={AddProduct}
         />
       </Switch>
     </BrowserRouter>

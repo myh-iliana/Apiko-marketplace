@@ -46,17 +46,17 @@ const EditForm = ({ onSubmit }) => {
       <div className={s.form}>
         <Name>Edit profile</Name>
         <Formik {...formikProps}>
-          {({ handleSubmit, values, setFieldValue }) => (
+          {({ handleSubmit, setFieldValue }) => (
             <form onSubmit={handleSubmit}>
               <File
                 name="avatar"
                 label="Upgrade Photo"
                 onChange={async (e) => {
-                  await store.file.upload.run(
+                  await store.files.upload.run(
                     e.currentTarget.files[0],
                   );
-                  const { uploadedFile } = store.file;
-                  const { isError } = store.file.upload;
+                  const uploadedFile = store.files.items[0];
+                  const { isError } = store.files.upload;
                   if (uploadedFile && !isError) {
                     setFieldValue('avatar', uploadedFile);
                   }
