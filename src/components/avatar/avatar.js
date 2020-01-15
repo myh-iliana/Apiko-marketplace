@@ -1,17 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import s from '../../scenes/product-view/components/sidebar.module.scss';
+import s from './avatar.module.scss';
 
-const Avatar = ({ avatar, size, ...props }) => {
-  return (
-    <div
-      className={s.avatar}
-      style={{
+const Avatar = ({ avatar, size, className, ...props }) => {
+  const style = avatar
+    ? {
         backgroundImage: `url(${avatar})`,
         width: `${size}rem`,
         height: `${size}rem`,
-      }}
+      }
+    : {
+        background: 'lightgray',
+        width: `${size}rem`,
+        height: `${size}rem`,
+      };
+
+  return (
+    <div
+      className={`${s.avatar} ${className}`}
+      style={style}
       {...props}
     />
   );

@@ -18,10 +18,13 @@
 
 .imgWrapper {
   position: relative;
+  width: 100%;
+  min-height: 275px;
 }
 
 .img {
   width: 100%;
+  object-fit: fill;
 }
 
 .price {
@@ -71,9 +74,11 @@
   margin: 0.9rem 0;
 }
 
-.descr {
+.description {
   color: #2B2B2B;
   font-size: 0.875rem;
   line-height: 1.5rem;
+  white-space: pre-line;
+  overflow: auto;
 }
 

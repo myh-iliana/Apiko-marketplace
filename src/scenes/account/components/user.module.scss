@@ -1,0 +1,85 @@
+.avatar {
+  border: 2.7px solid #349A89;
+}
+
+.name {
+  font-family: Rubik, sans-serif;
+  font-size: 1.25rem;
+  color: #141414;
+  margin: 1rem 0 0.35rem 0;
+}
+
+.location {
+  font-family: Rubik, sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  color: #9099A7;
+}
+
+.info {
+  display: flex;
+  margin-top: 1.7rem;
+  margin-bottom: 1.56rem;
+}
+
+.item {
+  text-decoration: none;
+  width: 163px;
+  border: 1.3px solid #EEEFF1;
+  box-sizing: border-box;
+  padding: 1rem;
+  text-align: center;
+  font-family: Rubik, sans-serif;
+  font-size: 1.4rem;
+  cursor: pointer;
+
+  &:nth-child(1) {
+    color: #3CB255;
+  }
+  &:nth-child(2) {
+    color: #349A89;
+  }
+  &:nth-child(3) {
+    color: #327160;
+  }
+
+  > div {
+    margin-top: 0.25rem;
+    font-weight: 300;
+    font-size: 0.8rem;
+    color: #9099A7;
+  }
+}
+
+.active {
+  background: #349A89;
+  position: relative;
+
+  &:nth-child(1) {
+    color: white;
+  }
+  &:nth-child(2) {
+    color: white;
+  }
+  &:nth-child(3) {
+    color: white;
+  }
+
+  > div {
+    color: white;
+  }
+
+  &:after {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: #349A89;
+    position: absolute;
+    border: 1.3px solid #EEEFF1;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+    right: calc(50% - 11px);
+    bottom: -9px;
+  }
+}

@@ -79,7 +79,19 @@ export const Products = {
   },
 
   fetchProduct(id) {
-    return axios.get(`/api/products/${id}`);
+    return axios.get(`/api/products/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('_token')}`,
+      },
+    });
+  },
+
+  fetchUserProducts(id) {
+    return axios.get(`/api/users/${id}/products`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('_token')}`,
+      },
+    });
   },
 
   save(id) {
@@ -88,5 +100,18 @@ export const Products = {
 
   removeFromSaved(id) {
     return axios.delete(`/api/products/${id}/saved`);
+  },
+
+  create({ title, description, photos, location, price }) {
+    return axios.post(`/api/products`, {
+      title,
+      description,
+      photos,
+      location,
+      price,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('_token')}`,
+      },
+    });
   },
 };

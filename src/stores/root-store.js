@@ -5,6 +5,7 @@ import { AuthStore } from './auth/auth-store';
 import { ViewerStore } from './users/viewer-store';
 import { LatestProductsStore } from './products/latest-products-store';
 import { SavedProductsStore } from './products/saved-products-store';
+import { UserProductsStore } from './products/user-products-store';
 import { EntitiesStore } from './entities-store';
 import { FileStore } from './file-store';
 
@@ -15,6 +16,7 @@ export const RootStore = t
 
     latestProducts: t.optional(LatestProductsStore, {}),
     savedProducts: t.optional(SavedProductsStore, {}),
+    userProducts: t.optional(UserProductsStore, {}),
 
     file: t.optional(FileStore, {}),
 

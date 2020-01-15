@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
 import { routes } from '../../../scenes/routes';
@@ -12,6 +12,9 @@ const Dropdown = () => {
   const store = useStore();
   const { user } = store.viewer;
   const { logout } = store.auth;
+  const link = generatePath(routes.account, {
+    userId: user.id,
+  });
 
   const toggleDropdown = () => setShow(!show);
   const logOut = () => {
@@ -33,8 +36,8 @@ const Dropdown = () => {
             <span className={s.name}>{user.fullName}</span>
             <span className={s.email}>{user.email}</span>
             <Link
-              to={routes.account}
-              href={routes.account}
+              to={link}
+              href={link}
               className={s.link}
               onClick={toggleDropdown}
             >

@@ -23,14 +23,15 @@ const Item = ({ product }) => {
     <>
       <div className={s.img}>
         <Link to={link} className={s.link} href={link}>
-          <img
+          <div
             className={s.img}
-            src={
-              photos[0]
-                ? photos[0]
-                : 'https://farm5.staticflickr.com/4363/36346283311_74018f6e7d_o.png'
-            }
-            alt={title}
+            style={{
+              background: `url(${
+                photos[0]
+                  ? photos[0]
+                  : 'https://farm5.staticflickr.com/4363/36346283311_74018f6e7d_o.png'
+              }) center/cover no-repeat`,
+            }}
           />
         </Link>
         <span className={s.saved}>

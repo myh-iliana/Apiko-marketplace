@@ -1,18 +1,26 @@
 /* eslint-disable prefer-destructuring */
 import React, { useEffect } from 'react';
+import { useParams, Link, generatePath } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
 import { useStore } from 'src/stores/create-store';
-import Loader from '../../../components/loader/loader';
+import Loader from '../../../../components/loader/loader';
+import Saved from '../../../../components/svg/saved';
 import s from './sidebar.module.scss';
-import Saved from '../../../components/svg/saved';
+import { routes } from '../../../routes';
+import Avatar from '../../../../components/avatar/avatar';
 
-const Sidebar = ({ id }) => {
+const Sidebar = ({ id, saved }) => {
+  const { productId } = useParams();
   const store = useStore();
   const owner = store.entities.users.collection.get(id);
   const getUser = store.entities.users.getUser;
   const isLoading = store.entities.users.getUser.isLoading;
+  const saveProduct = () =>
+    store.entities.products.save.run(productId);
+  const removeProduct = () =>
+    store.entities.products.removeFromSaved.run(productId);
 
   useEffect(() => {
     if (!owner) {
@@ -29,15 +37,17 @@ const Sidebar = ({ id }) => {
   }
 
   const { fullName, location, avatar } = owner;
+  const link = generatePath(routes.account, {
+    userId: owner.id,
+  });
 
   return (
     <div className={s.sidebar}>
       <div className={s.author}>
-        <div
-          className={s.avatar}
-          style={{ backgroundImage: `url(${avatar})` }}
-        />
-        <div className={s.authorName}>{fullName}</div>
+        <Link to={link} href={link} className={s.link}>
+          <Avatar avatar={avatar} size={4.2} />
+          <div className={s.authorName}>{fullName}</div>
+        </Link>
         {location && (
           <div className={s.authorLocation}>{location}</div>
         )}
@@ -45,8 +55,11 @@ const Sidebar = ({ id }) => {
 
       <div className={s.btns}>
         <button>Chat with seller</button>
-        <button>
-          <Saved fill="#535353" />
+        <button onClick={saved ? removeProduct : saveProduct}>
+          <Saved
+            color={saved ? '#349A89' : '#B7B7B7'}
+            fullFill={saved}
+          />
           <span>Add to favorite</span>
         </button>
       </div>
@@ -56,6 +69,7 @@ const Sidebar = ({ id }) => {
 
 Sidebar.propTypes = {
   id: PropTypes.number,
+  saved: PropTypes.bool,
 };
 
 export default observer(Sidebar);

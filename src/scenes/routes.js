@@ -11,7 +11,7 @@ import Auth from './auth/auth';
 import ProductView from './product-view/product-view';
 import Home from './home/home';
 import Edit from './edit/edit';
-import Footer from '../components/footer/footer';
+import Account from './account/account';
 import { useStore } from '../stores/create-store';
 import SavedProducts from './saved-products/saved-products';
 
@@ -23,7 +23,10 @@ export const routes = {
   restore: '/auth/restore',
   product: '/products/:productId',
   savedProducts: '/saved',
-  account: '/account',
+  account: '/profile/:userId',
+  userProducts: `/profile/:userId/products`,
+  userFeedbacks: `/profile/:userId/feedbacks`,
+  userSales: `/profile/:userId/sales`,
   editAccount: '/account/edit',
   sell: '/sell',
 };
@@ -75,13 +78,13 @@ const Router = () => {
         <Route exact path={routes.home} component={Home} />
         <LoggedInPrivateRoute path={routes.auth} component={Auth} />
         <PrivateRoute path={routes.editAccount} component={Edit} />
+        <PrivateRoute path={routes.account} component={Account} />
         <Route path={routes.product} component={ProductView} />
         <PrivateRoute
           path={routes.savedProducts}
           component={SavedProducts}
         />
       </Switch>
-      {/*<Footer />*/}
     </BrowserRouter>
   );
 };

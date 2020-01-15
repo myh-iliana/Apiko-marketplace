@@ -19,11 +19,11 @@ function getProduct(id) {
 function save(id) {
   return async function saveProductFlow(flow, parent, root) {
     const item = root.entities.products.collection.get(id);
-    item.setSaved();
+    item.setSaved(true);
     const res = await Api.Products.save(id);
 
     if (!res.data.success) {
-      item.removeSaved();
+      item.setSaved(false);
     }
   };
 }
@@ -35,11 +35,11 @@ function removeFromSaved(id) {
     root,
   ) {
     const item = root.entities.products.collection.get(id);
-    item.removeSaved();
+    item.setSaved(false);
     const res = await Api.Products.removeFromSaved(id);
 
     if (!res.data.success) {
-      item.setSaved();
+      item.setSaved(true);
     }
   };
 }

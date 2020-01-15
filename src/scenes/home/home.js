@@ -6,27 +6,25 @@ import { useStore } from '../../stores/create-store';
 import Loader from '../../components/loader/loader';
 import List from '../../components/products/list/list';
 import Search from './components/search';
-import s from './home.module.scss';
+import Container from '../../components/container/container';
 
 const Home = () => {
   const store = useStore();
-  const { fetchLatest, isLoading, items } = store.latestProducts;
+  const { fetchLatest, items } = store.latestProducts;
+  const { isLoading } = fetchLatest;
 
   useEffect(() => {
     fetchLatest.run();
   }, []);
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
   return (
     <>
       <Header search />
-      <main className={s.container}>
+      <Container>
         <Search />
+        {isLoading && <Loader />}
         <List items={items} />
-      </main>
+      </Container>
     </>
   );
 };

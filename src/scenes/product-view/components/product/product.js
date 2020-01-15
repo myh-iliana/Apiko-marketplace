@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 
 import { useStore } from 'src/stores/create-store';
 import { ReactComponent as Location } from 'src/components/svg/location.svg';
-import Loader from '../../../components/loader/loader';
-import Sidebar from './sidebar';
+import Loader from '../../../../components/loader/loader';
+import Sidebar from '../sidebar/sidebar';
 import s from './product.module.scss';
 
 const Product = () => {
@@ -38,6 +38,7 @@ const Product = () => {
     description,
     price,
     ownerId,
+    saved,
   } = product;
   const date = new Date(createdAt);
 
@@ -68,11 +69,11 @@ const Product = () => {
             <span className={s.grey}>{location}</span>
           </div>
           <div className={s.line} />
-          <pre className={s.descr}>{description}</pre>
+          <pre className={s.description}>{description}</pre>
         </div>
       </div>
 
-      <Sidebar id={ownerId} />
+      <Sidebar id={ownerId} saved={saved} />
     </div>
   );
 };

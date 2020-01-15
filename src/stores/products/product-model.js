@@ -14,11 +14,7 @@ export const ProductModel = t
     updatedAt: t.string,
   })
   .actions((store) => ({
-    setSaved() {
-      store.saved = true;
-    },
-
-    removeSaved() {
-      store.saved = false;
+    setSaved(value) {
+      store.saved = value;
     },
   }));
