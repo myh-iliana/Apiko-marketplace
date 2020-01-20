@@ -117,4 +117,8 @@ export const Products = {
       },
     });
   },
+
+  search(query) {
+    return axios.get(`/api/products/search${query}`);
+  },
 };

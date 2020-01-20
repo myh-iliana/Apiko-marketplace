@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
 import Header from '../../components/header/header';
@@ -12,10 +13,15 @@ const Home = () => {
   const store = useStore();
   const { fetchLatest, items } = store.latestProducts;
   const { isLoading } = fetchLatest;
+  const { search } = useLocation();
 
   useEffect(() => {
-    fetchLatest.run();
-  }, []);
+    if (search) {
+      fetchLatest.run(search);
+    } else {
+      fetchLatest.run();
+    }
+  }, [search]);
 
   return (
     <>
