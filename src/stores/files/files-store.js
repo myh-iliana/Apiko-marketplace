@@ -16,9 +16,8 @@ export const FilesStore = t
   }));
 
 function fileFlow(files) {
-  return async (flow, parentStore, root) => {
+  return async (flow, parentStore) => {
     const filesArray = Object.values(files);
-
     let items = [];
     filesArray.forEach(async (file) => {
       const data = new FormData();

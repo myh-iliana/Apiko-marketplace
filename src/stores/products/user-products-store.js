@@ -8,6 +8,7 @@ export const UserProductsStore = t
   .model('UserProductsStore', {
     items: t.array(t.reference(ProductModel)),
     fetchUserProducts: AsyncModel(fetchUserProducts),
+    addProduct: AsyncModel(addProduct),
   })
   .actions((store) => ({
     setItems(items) {
@@ -16,7 +17,11 @@ export const UserProductsStore = t
   }));
 
 function fetchUserProducts(id) {
-  return async function fetchUserProductsFlow(flow, parentStore, root) {
+  return async function fetchUserProductsFlow(
+    flow,
+    parentStore,
+    root,
+  ) {
     const res = await Api.Products.fetchUserProducts(id);
 
     const ids = res.data.list.map((item) => {
@@ -25,5 +30,23 @@ function fetchUserProducts(id) {
     });
 
     parentStore.setItems(ids);
+  };
+}
+
+function addProduct({ title, description, photos, location, price }) {
+  return async function addProductFlow(flow, parentStore, root) {
+    const res = await Api.Products.create({
+      title,
+      description,
+      photos,
+      location,
+      price,
+    });
+
+    const item = res.data;
+
+    root.entities.products.add(item.id, item);
+
+    parentStore.setItems(item.id);
   };
 }

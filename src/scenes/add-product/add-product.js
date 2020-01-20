@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import { Redirect } from 'react-router-dom';
+import { values } from 'mobx';
 
-import AddForm from './components/add-form';
 import { useStore } from '../../stores/create-store';
-import Header from '../../components/header/header';
-import s from './add-product.module.scss';
 import { routes } from '../routes';
+import Header from '../../components/header/header';
+import AddForm from './components/add-form';
+import s from './add-product.module.scss';
 
 const AddProduct = () => {
   const [added, setAdded] = useState(false);
   const store = useStore();
+  const files = values(store.files.items);
+  console.log(files);
 
   const onSubmit = async ({
     title,
@@ -19,8 +22,14 @@ const AddProduct = () => {
     location,
     price,
   }) => {
-    await store.viewer.edit
-      .run({ title, description, photos, location, price })
+    await store.userProducts.addProduct
+      .run({
+        title,
+        description,
+        photos: files,
+        location,
+        price: +price,
+      })
       .then(() => setAdded(true));
   };
 

@@ -28,6 +28,7 @@ const Avatar = ({ avatar, size, className, ...props }) => {
 Avatar.propTypes = {
   avatar: PropTypes.string,
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  className: PropTypes.string,
 };
 
 export default Avatar;

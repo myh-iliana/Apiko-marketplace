@@ -52,16 +52,11 @@ const EditForm = ({ onSubmit }) => {
                 name="avatar"
                 label="Upgrade Photo"
                 onChange={async (e) => {
-                  await store.files.upload.run(
-                    e.currentTarget.files[0],
-                  );
-                  const uploadedFile = store.files.items[0];
-                  const { isError } = store.files.upload;
-                  if (uploadedFile && !isError) {
-                    setFieldValue('avatar', uploadedFile);
-                  }
+                  await store.files.upload.run(e.currentTarget.files);
                 }}
+                setFieldValue={setFieldValue}
               />
+
               <Row label="full name" type="text" name="fullName" />
               <Row
                 label="phone number"

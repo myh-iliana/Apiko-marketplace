@@ -9,22 +9,22 @@ import Row from 'src/components/form/row/row';
 import Button from 'src/components/form/button/button';
 import Name from 'src/components/form/name/name';
 import styles from 'src/components/form/form.module.scss';
-import Loader from '../../../components/loader/loader';
-import Container from '../../../components/container/container';
+import Loader from 'src/components/loader/loader';
+import Container from 'src/components/container/container';
+
 import File from './file/file';
 import s from './add-form.module.scss';
 
 const AddForm = ({ onSubmit }) => {
   const store = useStore();
-  const viewer = store.viewer.user;
-  const { isLoading } = store.viewer.edit;
+  const { isLoading } = store;
   const formikProps = {
     initialValues: {
       title: '',
       location: '',
+      photos: [],
       description: '',
       price: '',
-      photos: [],
     },
 
     validationSchema: Yup.object().shape({
@@ -48,7 +48,7 @@ const AddForm = ({ onSubmit }) => {
         <div className={`${styles.form} ${s.form}`}>
           <Name>Add product</Name>
           <Formik {...formikProps}>
-            {({ handleSubmit, setFieldValue, values }) => (
+            {({ handleSubmit }) => (
               <form onSubmit={handleSubmit} className={s.formAlign}>
                 <Row
                   label="title"
@@ -77,11 +77,6 @@ const AddForm = ({ onSubmit }) => {
                     await store.files.upload.run(
                       e.currentTarget.files,
                     );
-                    const uploadedFiles = store.files.items;
-                    const { isError } = store.files.upload;
-                    if (uploadedFiles && !isError) {
-                      setFieldValue('photos', uploadedFiles);
-                    }
                   }}
                 />
                 <Row

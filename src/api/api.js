@@ -51,6 +51,9 @@ export const User = {
       phone,
       avatar,
       location,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('_token')}`,
+      },
     });
   },
 };
@@ -102,7 +105,7 @@ export const Products = {
     return axios.delete(`/api/products/${id}/saved`);
   },
 
-  create({ title, description, photos, location, price }) {
+  create({ title, description, photos = [], location, price }) {
     return axios.post(`/api/products`, {
       title,
       description,
