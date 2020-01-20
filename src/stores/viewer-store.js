@@ -6,7 +6,7 @@ export const ViewerStore = t
     user: t.maybe(UserModel),
   })
   .actions((store) => ({
-    seViewer(user) {
+    setViewer(user) {
       store.user = user;
     },
   }));

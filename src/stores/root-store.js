@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { flow, types as t } from 'mobx-state-tree';
 
 import Api from 'src/api';
@@ -7,7 +8,7 @@ import { ViewerStore } from './viewer-store';
 export const RootStore = t
   .model('RootStore', {
     auth: t.optional(AuthStore, {}),
-    vieer: t.optional(ViewerStore, {}),
+    viewer: t.optional(ViewerStore, {}),
   })
   .actions((store) => ({
     bootstrap: flow(function* bootstrap() {
