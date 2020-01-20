@@ -1,34 +1,96 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
+import { observer } from 'mobx-react';
 
+import { useStore } from '../stores/create-store';
 import Auth from './auth/auth';
-import Header from '../components/header/header';
-import Footer from '../components/footer/footer';
-import RestoreForm from './restore/restore';
+import Home from './home/home';
+import Edit from './edit/edit';
+import Account from './account/account';
+import ProductView from './product-view/product-view';
+import SavedProducts from './saved-products/saved-products';
+import AddProduct from './add-product/add-product';
 
 export const routes = {
   home: '/',
   auth: '/auth',
   login: '/auth/login',
   register: '/auth/register',
-  restore: '/restore',
-  savedProducts: '/products/saved',
+  restore: '/auth/restore',
+  product: '/products/:productId',
+  savedProducts: '/saved',
+  account: '/profile/:userId',
+  userProducts: `/profile/:userId/products`,
+  userFeedbacks: `/profile/:userId/feedbacks`,
+  userSales: `/profile/:userId/sales`,
+  editAccount: '/account/edit',
+  addProduct: '/product/add',
 };
+
+const PrivateRoute = observer(
+  ({ component: Component, ...props }) => {
+    const store = useStore();
+    const { isLoggedIn } = store.auth;
+
+    return (
+      <Route
+        {...props}
+        render={({ ...renderProps }) =>
+          isLoggedIn ? (
+            <Component {...renderProps} />
+          ) : (
+            <Redirect to={routes.login} />
+          )
+        }
+      />
+    );
+  },
+);
+
+const LoggedInPrivateRoute = observer(
+  ({ component: Component, ...props }) => {
+    const store = useStore();
+    const { isLoggedIn } = store.auth;
+
+    return (
+      <Route
+        {...props}
+        render={({ ...renderProps }) =>
+          isLoggedIn ? (
+            <Redirect to={routes.home} />
+          ) : (
+            <Component {...renderProps} />
+          )
+        }
+      />
+    );
+  },
+);
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Header />
       <Switch>
-        <Route
-          exact
-          path={routes.home}
-          component={() => <div>Home</div>}
+        <Route exact path={routes.home} component={Home} />
+        <LoggedInPrivateRoute path={routes.auth} component={Auth} />
+        <PrivateRoute path={routes.editAccount} component={Edit} />
+        <PrivateRoute path={routes.account} component={Account} />
+        <Route exact path={routes.product} component={ProductView} />
+        <PrivateRoute
+          path={routes.savedProducts}
+          component={SavedProducts}
         />
-        <Route path={routes.auth} component={Auth} />
-        <Route path={routes.restore} component={RestoreForm} />
+        <PrivateRoute
+          exact
+          path={routes.addProduct}
+          component={AddProduct}
+        />
       </Switch>
-      <Footer />
     </BrowserRouter>
   );
 };

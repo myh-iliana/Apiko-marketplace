@@ -39,7 +39,7 @@ const Loader = ({ size = 2, align = false }) => {
 };
 
 Loader.propTypes = {
-  size: PropTypes.number,
+  size: PropTypes.string,
   align: PropTypes.bool,
 };
 

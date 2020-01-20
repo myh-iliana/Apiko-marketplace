@@ -1,4 +1,10 @@
-import { types as t } from 'mobx-state-tree';
+import {
+  applySnapshot,
+  onSnapshot,
+  getParent,
+  getRoot,
+  types as t,
+} from 'mobx-state-tree';
 
 export function AsyncModel(thunk, auto = true) {
   const model = t
@@ -6,7 +12,8 @@ export function AsyncModel(thunk, auto = true) {
       isLoading: false,
       isError: false,
       errorMsg: t.maybeNull(t.string),
-    })    .actions((store) => ({
+    })
+    .actions((store) => ({
       start() {
         store.isLoading = true;
         store.isError = false;
@@ -25,7 +32,11 @@ export function AsyncModel(thunk, auto = true) {
       },
 
       run(...args) {
-        const promise = thunk(...args)(store);
+        const promise = thunk(...args)(
+          store,
+          getParent(store),
+          getRoot(store),
+        );
 
         if (auto) {
           return store._auto(promise);
@@ -47,4 +58,49 @@ export function AsyncModel(thunk, auto = true) {
     }));
 
   return t.optional(model, {});
+}
+
+export function createPersist(store) {
+  const KEY = '_persist';
+
+  onSnapshot(store, (snapshot) => {
+    // eslint-disable-next-line no-undef
+    localStorage.setItem(
+      KEY,
+      JSON.stringify({
+        auth: {
+          isLoggedIn: snapshot.auth.isLoggedIn,
+        },
+        viewer: {
+          user: snapshot.viewer.user,
+        },
+      }),
+    );
+  });
+
+  function rehydrate() {
+    // eslint-disable-next-line no-undef
+    const snapshot = localStorage.getItem(KEY);
+
+    if (snapshot) {
+      applySnapshot(store, JSON.parse(snapshot));
+    }
+  }
+
+  return { rehydrate };
+}
+
+export function createCollection(ofModel, asyncModels = {}) {
+  const collection = t
+    .model('CollectionModel', {
+      collection: t.map(ofModel),
+      ...asyncModels,
+    })
+    .actions((store) => ({
+      add(key, value) {
+        store.collection.set(String(key), value);
+      },
+    }));
+
+  return t.optional(collection, {});
 }
