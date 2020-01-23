@@ -1,7 +1,10 @@
+import { normalize } from 'normalizr';
+
 import { ProductModel } from './product-model';
 import { AsyncModel, createCollection } from '../utils';
 import { useStore } from '../create-store';
 import Api from '../../api';
+import { Product } from '../schemas';
 
 export function useProductsCollection() {
   const store = useStore();
@@ -18,12 +21,10 @@ function getProduct(id) {
   return async function getProductFlow(flow, parent, root) {
     const res = await Api.Products.fetchProduct(id);
 
-    root.entities.users.add(res.data.owner.id, res.data.owner);
+    const { entities } = normalize(res.data, Product);
 
-    parent.add(res.data.id, {
-      ...res.data,
-      owner: res.data.ownerId,
-    });
+    root.entities.users.add(res.data.owner.id, res.data.owner);
+    root.entities.merge(entities);
   };
 }
 
@@ -40,11 +41,7 @@ function save(id) {
 }
 
 function removeFromSaved(id) {
-  return async function removeFromSavedProductFlow(
-    flow,
-    parentStore,
-    root,
-  ) {
+  return async function removeFromSavedProductFlow(flow, parentStore, root) {
     const item = root.entities.products.collection.get(id);
     item.setSaved(false);
     const res = await Api.Products.removeFromSaved(id);

@@ -10,34 +10,25 @@ import AddForm from './components/add-form';
 import s from './add-product.module.scss';
 
 const AddProduct = () => {
-  const [added, setAdded] = useState(false);
+  // const [added, setAdded] = useState(false);
   const store = useStore();
   const files = values(store.files.items);
-  console.log(files);
 
-  const onSubmit = async ({
-    title,
-    description,
-    photos,
-    location,
-    price,
-  }) => {
-    await store.userProducts.addProduct
-      .run({
-        title,
-        description,
-        photos: files,
-        location,
-        price: +price,
-      })
-      .then(() => setAdded(true));
+  const onSubmit = async ({ title, description, photos, location, price }) => {
+    await store.userProducts.addProduct.run({
+      title,
+      description,
+      photos: files,
+      location,
+      price: +price,
+    });
   };
 
   return (
     <div className={s.container}>
       <Header />
       <AddForm onSubmit={onSubmit} />
-      {added && <Redirect to={routes.account} />}
+      {/*{added && <Redirect to={routes.account} />}*/}
     </div>
   );
 };

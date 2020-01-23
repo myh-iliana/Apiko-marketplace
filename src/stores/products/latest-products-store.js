@@ -1,9 +1,11 @@
 import { types as t } from 'mobx-state-tree';
 import queryString from 'query-string';
+import { normalize } from 'normalizr';
 
 import Api from 'src/api';
 import { ProductModel } from './product-model';
 import { AsyncModel } from '../utils';
+import { LatestProductCollection } from '../schemas';
 
 export const LatestProductsStore = t
   .model('LatestProductsStore', {
@@ -26,11 +28,9 @@ function fetchLatest(query) {
       res = await Api.Products.fetchLatest();
     }
 
-    const ids = res.data.map((item) => {
-      root.entities.products.add(item.id, item);
-      return item.id;
-    });
+    const { result, entities } = normalize(res.data, LatestProductCollection);
 
-    parentStore.setItems(ids);
+    root.entities.merge(entities);
+    parentStore.setItems(result);
   };
 }

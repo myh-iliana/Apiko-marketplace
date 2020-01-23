@@ -74,9 +74,7 @@ const AddForm = ({ onSubmit }) => {
                   name="photos"
                   label="photos"
                   onChange={async (e) => {
-                    await store.files.upload.run(
-                      e.currentTarget.files,
-                    );
+                    await store.files.upload.run(e.currentTarget.files);
                   }}
                 />
                 <Row
@@ -89,10 +87,7 @@ const AddForm = ({ onSubmit }) => {
                 {isLoading ? (
                   <Loader />
                 ) : (
-                  <Button
-                    disabled={isLoading && 'disabled'}
-                    className={s.btn}
-                  >
+                  <Button disabled={isLoading && 'disabled'} className={s.btn}>
                     SUBMIT
                   </Button>
                 )}

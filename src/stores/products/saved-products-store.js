@@ -1,8 +1,10 @@
 import { types as t } from 'mobx-state-tree';
+import { normalize } from 'normalizr';
 
 import Api from 'src/api';
 import { ProductModel } from './product-model';
 import { AsyncModel } from '../utils';
+import { SavedProductCollection } from '../schemas';
 
 export const SavedProductsStore = t
   .model('LatestProductsStore', {
@@ -19,11 +21,9 @@ function fetchSaved() {
   return async function fetchSavedFlow(flow, parentStore, root) {
     const res = await Api.Products.fetchSaved();
 
-    const ids = res.data.map((item) => {
-      root.entities.products.add(item.id, item);
-      return item.id;
-    });
+    const { result, entities } = normalize(res.data, SavedProductCollection);
 
-    parentStore.setItems(ids);
+    root.entities.merge(entities);
+    parentStore.setItems(result);
   };
 }

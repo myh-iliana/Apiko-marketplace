@@ -1,8 +1,10 @@
 import { types as t } from 'mobx-state-tree';
+import { normalize } from 'normalizr';
 
 import Api from 'src/api';
 import { ProductModel } from './product-model';
 import { AsyncModel } from '../utils';
+import { Product, UserProductCollection } from '../schemas';
 
 export const UserProductsStore = t
   .model('UserProductsStore', {
@@ -17,19 +19,13 @@ export const UserProductsStore = t
   }));
 
 function fetchUserProducts(id) {
-  return async function fetchUserProductsFlow(
-    flow,
-    parentStore,
-    root,
-  ) {
+  return async function fetchUserProductsFlow(flow, parentStore, root) {
     const res = await Api.Products.fetchUserProducts(id);
 
-    const ids = res.data.list.map((item) => {
-      root.entities.products.add(item.id, item);
-      return item.id;
-    });
+    const { result, entities } = normalize(res.data.list, UserProductCollection);
 
-    parentStore.setItems(ids);
+    root.entities.merge(entities);
+    parentStore.setItems(result);
   };
 }
 
@@ -43,10 +39,9 @@ function addProduct({ title, description, photos, location, price }) {
       price,
     });
 
-    const item = res.data;
+    const { result, entities } = normalize(res.data, Product);
 
-    root.entities.products.add(item.id, item);
-
-    parentStore.setItems(item.id);
+    root.entities.merge(entities);
+    parentStore.setItems(result);
   };
 }
