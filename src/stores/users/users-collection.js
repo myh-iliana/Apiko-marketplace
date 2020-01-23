@@ -1,6 +1,12 @@
 import { UserModel } from './user-model';
 import { AsyncModel, createCollection } from '../utils';
+import { useStore } from '../create-store';
 import Api from '../../api';
+
+export function useUsersCollection() {
+  const store = useStore();
+  return store.entities.users;
+}
 
 export const usersCollection = createCollection(UserModel, {
   getUser: AsyncModel(getUser),
@@ -8,11 +14,7 @@ export const usersCollection = createCollection(UserModel, {
 
 function getUser(id) {
   return async function getUserFlow(flow, parentStore, root) {
-    try {
-      const res = await Api.User.getCurrentUser(id);
-      root.entities.users.add(res.data.id, res.data);
-    } catch (e) {
-      console.log(e);
-    }
+    const res = await Api.User.getCurrentUser(id);
+    root.entities.users.add(res.data.id, res.data);
   };
 }

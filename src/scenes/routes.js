@@ -4,8 +4,11 @@ import {
   Route,
   Switch,
   Redirect,
+  useHistory,
+  useLocation,
 } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import queryString from 'query-string';
 
 import { useStore } from '../stores/create-store';
 import Auth from './auth/auth';
@@ -30,6 +33,24 @@ export const routes = {
   userSales: `/profile/:userId/sales`,
   editAccount: '/account/edit',
   addProduct: '/product/add',
+};
+
+export const useQuery = () => {
+  const { search } = useLocation();
+  const history = useHistory();
+  const parsed = queryString.parse(search);
+
+  const submit = (params) => {
+    const query = `?${queryString.stringify({
+      ...parsed,
+      ...params,
+    })}`;
+    history.push({ search: query });
+
+    return query;
+  };
+
+  return { submit };
 };
 
 const PrivateRoute = observer(

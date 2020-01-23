@@ -6,12 +6,13 @@ import PropTypes from 'prop-types';
 import { useStore } from '../../../stores/create-store';
 import Avatar from '../../../components/avatar/avatar';
 import Loader from '../../../components/loader/loader';
-import s from './user.module.scss';
+import { useUsersCollection } from '../../../stores/users/users-collection';
 import { routes } from '../../routes';
+import s from './user.module.scss';
 
 const User = ({ listings }) => {
   const store = useStore();
-  const { collection, getUser } = store.entities.users;
+  const { collection, getUser } = useUsersCollection();
   const { user: viewer } = store.viewer;
   const { isLoading } = getUser;
   const { userId } = useParams();

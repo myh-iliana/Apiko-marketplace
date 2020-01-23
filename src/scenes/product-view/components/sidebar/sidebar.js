@@ -1,44 +1,24 @@
 /* eslint-disable prefer-destructuring */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams, Link, generatePath } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
-import { useStore } from 'src/stores/create-store';
-import Loader from '../../../../components/loader/loader';
 import Saved from '../../../../components/svg/saved';
 import s from './sidebar.module.scss';
 import { routes } from '../../../routes';
 import Avatar from '../../../../components/avatar/avatar';
+import { useProductsCollection } from '../../../../stores/products/products-collection';
 
-const Sidebar = ({ id, saved }) => {
+const Sidebar = ({ owner, saved }) => {
   const { productId } = useParams();
-  const store = useStore();
-  const owner = store.entities.users.collection.get(id);
-  const getUser = store.entities.users.getUser;
-  const isLoading = store.entities.users.getUser.isLoading;
-  const saveProduct = () =>
-    store.entities.products.save.run(productId);
-  const removeProduct = () =>
-    store.entities.products.removeFromSaved.run(productId);
+  const { save, removeFromSaved } = useProductsCollection();
+  const saveProduct = () => save.run(productId);
+  const removeProduct = () => removeFromSaved.run(productId);
 
-  useEffect(() => {
-    if (!owner) {
-      getUser.run(id);
-    }
-  }, []);
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (!owner) {
-    return <h2>Cannot find owner</h2>;
-  }
-
-  const { fullName, location, avatar } = owner;
+  const { fullName, location, avatar, id } = owner;
   const link = generatePath(routes.account, {
-    userId: owner.id,
+    userId: id,
   });
 
   return (
@@ -68,7 +48,7 @@ const Sidebar = ({ id, saved }) => {
 };
 
 Sidebar.propTypes = {
-  id: PropTypes.number,
+  owner: PropTypes.object,
   saved: PropTypes.bool,
 };
 

@@ -1,4 +1,5 @@
 import { types as t } from 'mobx-state-tree';
+import { UserModel } from '../users/user-model';
 
 export const ProductModel = t
   .model('ProductModel', {
@@ -12,6 +13,7 @@ export const ProductModel = t
     saved: false,
     createdAt: t.string,
     updatedAt: t.string,
+    owner: t.safeReference(UserModel),
   })
   .actions((store) => ({
     setSaved(value) {

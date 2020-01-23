@@ -2,31 +2,26 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
-import { useStore } from 'src/stores/create-store';
 import { ReactComponent as Location } from 'src/components/svg/location.svg';
+import { useProductsCollection } from '../../../../stores/products/products-collection';
 import Loader from '../../../../components/loader/loader';
 import Sidebar from '../sidebar/sidebar';
 import s from './product.module.scss';
 
 const Product = () => {
   const { productId } = useParams();
-  const store = useStore();
-  const product = store.entities.products.collection.get(productId);
-  // eslint-disable-next-line prefer-destructuring
-  const getProduct = store.entities.products.getProduct;
-  const loading = store.entities.products.getProduct.isLoading;
+  const collection = useProductsCollection();
+  const product = collection.get(productId);
 
   useEffect(() => {
-    if (!product) {
-      getProduct.run(productId);
+    if (!product || !product.owner) {
+      collection.getProduct.run(productId);
     }
   }, []);
 
-  if (loading) {
+  if (collection.getProduct.isLoading) {
     return <Loader />;
-  }
-
-  if (!product) {
+  } else if (!product) {
     return <h1>Not found</h1>;
   }
 
@@ -37,7 +32,7 @@ const Product = () => {
     location,
     description,
     price,
-    ownerId,
+    owner,
     saved,
   } = product;
   const date = new Date(createdAt);
@@ -73,7 +68,7 @@ const Product = () => {
         </div>
       </div>
 
-      <Sidebar id={ownerId} saved={saved} />
+      {owner && <Sidebar owner={owner} saved={saved} />}
     </div>
   );
 };

@@ -1,25 +1,22 @@
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import queryString from 'query-string';
 
 import s from './search.module.scss';
 import { useStore } from '../../../stores/create-store';
+import { useQuery } from '../../routes';
 
 const Search = () => {
   const store = useStore();
   const { search } = useLocation();
-  const history = useHistory();
   const { priceFrom, priceTo } = queryString.parse(search);
+  const { submit } = useQuery();
 
   const onChange = (e) => {
-    const params = new URLSearchParams(search);
     const { name, value } = e.target;
-    if (name === 'priceFrom') params.set('priceFrom', value);
-    if (name === 'priceTo') params.set('priceTo', value);
-    const query = `?${params.toString()}`;
-    history.push({ search: query });
+    const query = submit({ [name]: value });
     store.latestProducts.fetchLatest.run(query);
   };
 

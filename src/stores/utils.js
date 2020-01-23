@@ -50,6 +50,7 @@ export function AsyncModel(thunk, auto = true) {
           store.start();
           await promise;
         } catch (err) {
+          console.log(err);
           store.error(err);
         } finally {
           store.finish();
@@ -96,6 +97,11 @@ export function createCollection(ofModel, asyncModels = {}) {
       collection: t.map(ofModel),
       ...asyncModels,
     })
+    .views((store) => ({
+      get(key) {
+        return store.collection.get(String(key));
+      },
+    }))
     .actions((store) => ({
       add(key, value) {
         store.collection.set(String(key), value);

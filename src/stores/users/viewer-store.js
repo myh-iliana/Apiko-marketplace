@@ -3,9 +3,12 @@ import { UserModel } from './user-model';
 import { AsyncModel } from '../utils';
 import Api from '../../api';
 
+const ViewerModel = UserModel.named('ViewerModel');
+
 export const ViewerStore = t
   .model('ViewerStore', {
-    user: t.maybeNull(UserModel),
+    user: t.maybe(ViewerModel),
+    userModel: t.maybe(UserModel),
     edit: AsyncModel(editFlow),
   })
   .actions((store) => ({

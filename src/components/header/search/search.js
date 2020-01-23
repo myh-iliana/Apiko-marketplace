@@ -1,20 +1,20 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 
 import s from './search.module.scss';
 import { useStore } from '../../../stores/create-store';
+import { useQuery } from '../../../scenes/routes';
 
 const Search = () => {
   const store = useStore();
-  const history = useHistory();
   const { search } = useLocation();
   const parsed = queryString.parse(search);
+  const { submit } = useQuery();
 
   const onSubmit = ({ search: keywords, location }) => {
-    const query = `?${queryString.stringify({ keywords, location })}`;
-    history.push({ search: query });
+    const query = submit({ keywords, location });
     store.latestProducts.fetchLatest.run(query);
   };
 
