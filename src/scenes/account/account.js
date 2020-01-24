@@ -27,9 +27,7 @@ const Account = () => {
         <User listings={items.length} />
         <Route
           path={routes.userProducts}
-          render={() =>
-            isLoading ? <Loader /> : <List items={items} />
-          }
+          render={() => (isLoading ? <Loader /> : <List items={items} />)}
         />
       </Container>
     </>

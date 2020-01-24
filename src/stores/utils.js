@@ -1,10 +1,5 @@
-import {
-  applySnapshot,
-  onSnapshot,
-  getParent,
-  getRoot,
-  types as t,
-} from 'mobx-state-tree';
+import { applySnapshot, onSnapshot, getParent, getRoot, types as t } from 'mobx-state-tree';
+import { normalize } from 'normalizr';
 
 export function AsyncModel(thunk, auto = true) {
   const model = t
@@ -32,17 +27,21 @@ export function AsyncModel(thunk, auto = true) {
       },
 
       run(...args) {
-        const promise = thunk(...args)(
-          store,
-          getParent(store),
-          getRoot(store),
-        );
+        const promise = thunk(...args)(store, getParent(store), getRoot(store));
 
         if (auto) {
           return store._auto(promise);
         }
 
         return promise;
+      },
+
+      merge(data, schema) {
+        const { result, entities } = normalize(data, schema);
+
+        getRoot(store).entities.merge(entities);
+
+        return result;
       },
 
       async _auto(promise) {

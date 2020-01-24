@@ -40,25 +40,13 @@ const User = ({ listings }) => {
         <div className={s.name}>{fullName}</div>
         <div className={s.location}>{location}</div>
         <div className={s.info}>
-          <NavLink
-            to={linkFeedbacks}
-            className={s.item}
-            activeClassName={s.active}
-          >
+          <NavLink to={linkFeedbacks} className={s.item} activeClassName={s.active}>
             88% <div>Positive feedback</div>
           </NavLink>
-          <NavLink
-            to={linkSales}
-            className={s.item}
-            activeClassName={s.active}
-          >
+          <NavLink to={linkSales} className={s.item} activeClassName={s.active}>
             123 <div>Sales</div>
           </NavLink>
-          <NavLink
-            className={s.item}
-            to={link}
-            activeClassName={s.active}
-          >
+          <NavLink className={s.item} to={link} activeClassName={s.active}>
             {listings} <div>Active listings</div>
           </NavLink>
         </div>

@@ -1,5 +1,3 @@
-import { normalize } from 'normalizr';
-
 import { ProductModel } from './product-model';
 import { AsyncModel, createCollection } from '../utils';
 import { useStore } from '../create-store';
@@ -18,13 +16,10 @@ export const productsCollection = createCollection(ProductModel, {
 });
 
 function getProduct(id) {
-  return async function getProductFlow(flow, parent, root) {
+  return async function getProductFlow(flow) {
     const res = await Api.Products.fetchProduct(id);
 
-    const { entities } = normalize(res.data, Product);
-
-    root.entities.users.add(res.data.owner.id, res.data.owner);
-    root.entities.merge(entities);
+    flow.merge(res.data, Product);
   };
 }
 

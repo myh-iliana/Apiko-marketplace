@@ -1,5 +1,4 @@
 import { types as t } from 'mobx-state-tree';
-import { normalize } from 'normalizr';
 
 import Api from 'src/api';
 import { ProductModel } from './product-model';
@@ -18,12 +17,10 @@ export const SavedProductsStore = t
   }));
 
 function fetchSaved() {
-  return async function fetchSavedFlow(flow, parentStore, root) {
+  return async function fetchSavedFlow(flow, parentStore) {
     const res = await Api.Products.fetchSaved();
+    const result = flow.merge(res.data, SavedProductCollection);
 
-    const { result, entities } = normalize(res.data, SavedProductCollection);
-
-    root.entities.merge(entities);
     parentStore.setItems(result);
   };
 }

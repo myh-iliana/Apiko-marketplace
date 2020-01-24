@@ -1,6 +1,5 @@
 import { types as t } from 'mobx-state-tree';
 import queryString from 'query-string';
-import { normalize } from 'normalizr';
 
 import Api from 'src/api';
 import { ProductModel } from './product-model';
@@ -19,7 +18,7 @@ export const LatestProductsStore = t
   }));
 
 function fetchLatest(query) {
-  return async function fetchLatestFlow(flow, parentStore, root) {
+  return async function fetchLatestFlow(flow, parentStore) {
     const search = queryString.parse(query);
     let res;
     if (query && (search.keywords || search.location)) {
@@ -27,10 +26,8 @@ function fetchLatest(query) {
     } else {
       res = await Api.Products.fetchLatest();
     }
+    const result = flow.merge(res.data, LatestProductCollection);
 
-    const { result, entities } = normalize(res.data, LatestProductCollection);
-
-    root.entities.merge(entities);
     parentStore.setItems(result);
   };
 }
