@@ -17,7 +17,7 @@ const Product = () => {
     if (!product || !product.owner) {
       collection.getProduct.run(productId);
     }
-  }, []);
+  }, [product, productId]);
 
   if (collection.getProduct.isLoading) {
     return <Loader />;
@@ -25,16 +25,7 @@ const Product = () => {
     return <h1>Not found</h1>;
   }
 
-  const {
-    photos,
-    title,
-    createdAt,
-    location,
-    description,
-    price,
-    owner,
-    saved,
-  } = product;
+  const { photos, title, createdAt, location, description, price, owner, saved } = product;
   const date = new Date(createdAt);
 
   return (
@@ -55,9 +46,7 @@ const Product = () => {
         <div className={s.info}>
           <div>
             <h1 className={s.name}>{title}</h1>
-            <span className={s.grey}>
-              {date.toLocaleDateString()}
-            </span>
+            <span className={s.grey}>{date.toLocaleDateString()}</span>
           </div>
           <div className={s.locationWrapper}>
             <Location className={s.icon} />

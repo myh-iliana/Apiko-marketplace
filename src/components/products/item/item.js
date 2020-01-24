@@ -6,15 +6,13 @@ import PropTypes from 'prop-types';
 import s from './item.module.scss';
 import { routes } from '../../../scenes/routes';
 import Saved from '../../svg/saved';
-import { useStore } from '../../../stores/create-store';
+import { useProductsCollection } from '../../../stores/products/products-collection';
 
 const Item = ({ product }) => {
   const { id, photos, title, saved, price } = product;
-  const store = useStore();
-  const saveProduct = (productId) =>
-    store.entities.products.save.run(productId);
-  const removeProduct = (productId) =>
-    store.entities.products.removeFromSaved.run(productId);
+  const { save, removeFromSaved } = useProductsCollection();
+  const saveProduct = (productId) => save.run(productId);
+  const removeProduct = (productId) => removeFromSaved.run(productId);
   const link = generatePath(routes.product, {
     productId: id,
   });
@@ -38,9 +36,7 @@ const Item = ({ product }) => {
           <Saved
             color={saved ? '#349A89' : '#B7B7B7'}
             fullFill={saved}
-            onClick={() =>
-              saved ? removeProduct(id) : saveProduct(id)
-            }
+            onClick={() => (saved ? removeProduct(id) : saveProduct(id))}
           />
         </span>
       </div>

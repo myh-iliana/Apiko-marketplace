@@ -11,7 +11,7 @@ const List = ({ items }) => {
       {items.map((item) => {
         return (
           <li key={item.id} className={s.item}>
-            <Item product={item} key={item.id} />
+            <Item product={item} />
           </li>
         );
       })}

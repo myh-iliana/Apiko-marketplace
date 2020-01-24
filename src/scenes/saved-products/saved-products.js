@@ -22,8 +22,7 @@ const SavedProducts = () => {
       <Header search />
       <Container bg>
         <h2 className={s.title}>
-          Saved items{' '}
-          <span className={s.number}>{`(${items.length})`}</span>
+          Saved items <span className={s.number}>{`(${items.length})`}</span>
         </h2>
         {isLoading && <Loader />}
         <List items={items} />
