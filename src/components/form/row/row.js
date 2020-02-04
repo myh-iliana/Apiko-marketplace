@@ -32,13 +32,7 @@ const Row = ({ label, type, required = false, ...props }) => {
             {meta.value}
           </textarea>
         ) : (
-          <input
-            {...field}
-            {...props}
-            type={fieldType}
-            className={s.field}
-            value={meta.value}
-          />
+          <input {...field} {...props} type={fieldType} className={s.field} value={meta.value} />
         )}
         {isPassword ? (
           <Eye

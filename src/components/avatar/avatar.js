@@ -16,13 +16,7 @@ const Avatar = ({ avatar, size, className, ...props }) => {
         height: `${size}rem`,
       };
 
-  return (
-    <div
-      className={`${s.avatar} ${className}`}
-      style={style}
-      {...props}
-    />
-  );
+  return <div className={`${s.avatar} ${className}`} style={style} {...props} />;
 };
 
 Avatar.propTypes = {

@@ -59,3 +59,59 @@
     }
   }
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cross {
+  color: #349A89;
+  font-size: 1.5rem;
+  position: absolute;
+  right: 1rem;
+  top: 0.6rem;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background: none;
+
+  &:hover {
+    color: rgba(44, 156, 148, 0.78);
+  }
+}
+
+.title {
+  font-size: 1.5rem;
+  color: #373738;
+}
+
+.owner {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.ownerInfo {
+  margin-left: 1rem;
+
+  > {
+    :first-child {
+      font-size: 1.5rem;
+      line-height: 28px;
+      color: #2B2B2B;
+    }
+
+    :last-child {
+      font-size: 0.9rem;
+      line-height: 17px;
+      color: rgba(43, 43, 43, 0.499918);
+    }
+  }
+}
+
+.btn {
+  width: 60%;
+  text-transform: uppercase;
+  align-self: center;
+}

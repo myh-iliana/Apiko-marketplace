@@ -122,3 +122,14 @@ export const Products = {
     return axios.get(`/api/products/search${query}`);
   },
 };
+
+export const Chats = {
+  create(id, message) {
+    return axios.post(`/api/products/${id}/createChat`, {
+      message,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('_token')}`,
+      },
+    });
+  },
+};

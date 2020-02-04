@@ -6,6 +6,7 @@ import Api from '../../api';
 
 export function useUsersCollection() {
   const store = useStore();
+
   return store.entities.users;
 }
 
@@ -14,9 +15,15 @@ export const usersCollection = createCollection(UserModel, {
 });
 
 function getUser(id) {
-  return async function getUserFlow(flow) {
-    const res = await Api.User.getCurrentUser(id);
+  return async function getUserFlow(flow, parent) {
+    let user;
+    user = parent.collection.get(id);
 
-    flow.merge(res.data, User);
+    if (!user) {
+      const res = await Api.User.getCurrentUser(id);
+      user = res.data;
+    }
+
+    flow.merge(user, User);
   };
 }

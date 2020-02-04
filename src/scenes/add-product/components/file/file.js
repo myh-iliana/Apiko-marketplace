@@ -19,25 +19,14 @@ const File = ({ label, setFieldValue, ...props }) => {
         <label htmlFor={field.name}>
           {files.length !== 0
             ? files.map((item) => (
-                <div
-                  key={item}
-                  className={s.images}
-                  style={{ backgroundImage: `url(${item})` }}
-                />
+                <div key={item} className={s.images} style={{ backgroundImage: `url(${item})` }} />
               ))
             : null}
           <div className={s.lines}>
             <div />
             <div />
           </div>
-          <input
-            id={field.name}
-            className={s.input}
-            type="file"
-            multiple
-            {...field}
-            {...props}
-          />
+          <input id={field.name} className={s.input} type="file" multiple {...field} {...props} />
         </label>
       </div>
     </div>

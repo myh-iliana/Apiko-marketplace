@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  Redirect,
-  useHistory,
-  useLocation,
-} from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import queryString from 'query-string';
 
@@ -33,6 +26,8 @@ export const routes = {
   userSales: `/profile/:userId/sales`,
   editAccount: '/account/edit',
   addProduct: '/product/add',
+  inbox: '/inbox',
+  inboxChat: '/inbox/:chatId',
 };
 
 export const useQuery = () => {
@@ -53,45 +48,33 @@ export const useQuery = () => {
   return { submit };
 };
 
-const PrivateRoute = observer(
-  ({ component: Component, ...props }) => {
-    const store = useStore();
-    const { isLoggedIn } = store.auth;
+const PrivateRoute = observer(({ component: Component, ...props }) => {
+  const store = useStore();
+  const { isLoggedIn } = store.auth;
 
-    return (
-      <Route
-        {...props}
-        render={({ ...renderProps }) =>
-          isLoggedIn ? (
-            <Component {...renderProps} />
-          ) : (
-            <Redirect to={routes.login} />
-          )
-        }
-      />
-    );
-  },
-);
+  return (
+    <Route
+      {...props}
+      render={({ ...renderProps }) =>
+        isLoggedIn ? <Component {...renderProps} /> : <Redirect to={routes.login} />
+      }
+    />
+  );
+});
 
-const LoggedInPrivateRoute = observer(
-  ({ component: Component, ...props }) => {
-    const store = useStore();
-    const { isLoggedIn } = store.auth;
+const LoggedInPrivateRoute = observer(({ component: Component, ...props }) => {
+  const store = useStore();
+  const { isLoggedIn } = store.auth;
 
-    return (
-      <Route
-        {...props}
-        render={({ ...renderProps }) =>
-          isLoggedIn ? (
-            <Redirect to={routes.home} />
-          ) : (
-            <Component {...renderProps} />
-          )
-        }
-      />
-    );
-  },
-);
+  return (
+    <Route
+      {...props}
+      render={({ ...renderProps }) =>
+        isLoggedIn ? <Redirect to={routes.home} /> : <Component {...renderProps} />
+      }
+    />
+  );
+});
 
 const Router = () => {
   return (
@@ -102,15 +85,8 @@ const Router = () => {
         <PrivateRoute path={routes.editAccount} component={Edit} />
         <PrivateRoute path={routes.account} component={Account} />
         <Route exact path={routes.product} component={ProductView} />
-        <PrivateRoute
-          path={routes.savedProducts}
-          component={SavedProducts}
-        />
-        <PrivateRoute
-          exact
-          path={routes.addProduct}
-          component={AddProduct}
-        />
+        <PrivateRoute path={routes.savedProducts} component={SavedProducts} />
+        <PrivateRoute exact path={routes.addProduct} component={AddProduct} />
       </Switch>
     </BrowserRouter>
   );

@@ -9,9 +9,10 @@ export const createStore = () => {
   const persist = createPersist(root);
   persist.rehydrate();
 
-  // onSnapshot(root, (snapshot) =>
-  //   console.log(JSON.stringify(snapshot.entities, null, 2)),
-  // );
+  onSnapshot(root, (snapshot) => {
+    // console.log(JSON.stringify(snapshot.entities.users, null, 2));
+    // console.log(JSON.stringify(snapshot.userProducts, null, 2));
+  });
 
   return root;
 };

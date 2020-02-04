@@ -1,4 +1,5 @@
 import { types as t } from 'mobx-state-tree';
+import { UserProductsStore } from '../products/user-products-store';
 
 export const UserModel = t.model('UserModel', {
   id: t.identifierNumber,
@@ -9,4 +10,6 @@ export const UserModel = t.model('UserModel', {
   createdAt: t.string,
   updatedAt: t.string,
   email: t.maybe(t.string),
+
+  ownProducts: t.optional(UserProductsStore, {}),
 });

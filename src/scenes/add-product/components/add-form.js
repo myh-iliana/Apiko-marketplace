@@ -11,7 +11,6 @@ import Name from 'src/components/form/name/name';
 import styles from 'src/components/form/form.module.scss';
 import Loader from 'src/components/loader/loader';
 import Container from 'src/components/container/container';
-
 import File from './file/file';
 import s from './add-form.module.scss';
 

@@ -1,4 +1,4 @@
-import { types as t } from 'mobx-state-tree';
+import { getParent, types as t } from 'mobx-state-tree';
 
 import Api from 'src/api';
 import { ProductModel } from './product-model';
@@ -7,7 +7,7 @@ import { Product, UserProductCollection } from '../schemas';
 
 export const UserProductsStore = t
   .model('UserProductsStore', {
-    items: t.array(t.reference(ProductModel)),
+    items: t.array(t.reference(t.late(() => ProductModel))),
     fetchUserProducts: AsyncModel(fetchUserProducts),
     addProduct: AsyncModel(addProduct),
   })
@@ -19,6 +19,7 @@ export const UserProductsStore = t
 
 function fetchUserProducts(id) {
   return async function fetchUserProductsFlow(flow, parentStore) {
+    console.log('parent', getParent(flow));
     const res = await Api.Products.fetchUserProducts(id);
     const result = flow.merge(res.data.list, UserProductCollection);
 

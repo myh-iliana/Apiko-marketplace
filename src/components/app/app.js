@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Modal from 'react-modal';
 
 import { Provider, createStore } from 'src/stores/create-store';
 import Router from '../../scenes/routes';
@@ -6,6 +7,7 @@ import Router from '../../scenes/routes';
 import './app.css';
 
 const store = createStore();
+Modal.setAppElement('#modalRoot');
 
 const App = () => {
   useEffect(() => {
