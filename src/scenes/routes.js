@@ -11,6 +11,7 @@ import Account from './account/account';
 import ProductView from './product-view/product-view';
 import SavedProducts from './saved-products/saved-products';
 import AddProduct from './add-product/add-product';
+import InboxView from './inbox/inbox-view';
 
 export const routes = {
   home: '/',
@@ -27,7 +28,7 @@ export const routes = {
   editAccount: '/account/edit',
   addProduct: '/product/add',
   inbox: '/inbox',
-  inboxChat: '/inbox/:chatId',
+  chat: '/inbox/:chatId',
 };
 
 export const useQuery = () => {
@@ -87,6 +88,7 @@ const Router = () => {
         <Route exact path={routes.product} component={ProductView} />
         <PrivateRoute path={routes.savedProducts} component={SavedProducts} />
         <PrivateRoute exact path={routes.addProduct} component={AddProduct} />
+        <PrivateRoute path={routes.inbox} component={InboxView} />
       </Switch>
     </BrowserRouter>
   );

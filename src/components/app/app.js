@@ -7,13 +7,10 @@ import Router from '../../scenes/routes';
 import './app.css';
 
 const store = createStore();
+store.bootstrap();
 Modal.setAppElement('#modalRoot');
 
 const App = () => {
-  useEffect(() => {
-    store.bootstrap();
-  }, []);
-
   return (
     <div>
       <Provider value={store}>

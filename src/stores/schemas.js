@@ -12,8 +12,10 @@ export const SavedProductCollection = [SavedProduct];
 export const UserProductCollection = [UserProduct];
 
 export const Message = new schema.Entity('messages');
+export const MessageCollection = [Message];
 export const Chat = new schema.Entity('chats', {
   message: Message,
   product: Product,
   participants: [User],
 });
+export const ChatCollection = [Chat];

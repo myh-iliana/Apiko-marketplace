@@ -37,7 +37,7 @@ const Sidebar = ({ owner, saved }) => {
     try {
       const chatId = await createChat.run(message);
       setIsVisible(false);
-      history.push(generatePath(routes.inboxChat, { chatId }));
+      history.push(generatePath(routes.chat, { chatId }));
     } catch {
       console.log();
     }

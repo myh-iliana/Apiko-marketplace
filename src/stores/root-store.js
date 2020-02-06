@@ -8,6 +8,7 @@ import { SavedProductsStore } from './products/saved-products-store';
 import { UserProductsStore } from './products/user-products-store';
 import { EntitiesStore } from './entities-store';
 import { FilesStore } from './files/files-store';
+import { ChatStore } from './chats/chat-store';
 
 export const RootStore = t
   .model('RootStore', {
@@ -18,6 +19,7 @@ export const RootStore = t
     savedProducts: t.optional(SavedProductsStore, {}),
     userProducts: t.optional(UserProductsStore, {}),
 
+    chats: t.optional(ChatStore, {}),
     files: t.optional(FilesStore, {}),
 
     entities: t.optional(EntitiesStore, {}),
@@ -34,6 +36,7 @@ export const RootStore = t
           store.auth.setIsLoggedIn(true);
           const res = yield Api.User.getUser(token);
           store.viewer.setViewer(res.data);
+          store.subscribeToEvents();
         } else {
           store.auth.setIsLoggedIn(false);
           store.viewer.setViewer(undefined);
@@ -45,4 +48,11 @@ export const RootStore = t
         Api.Auth.logout();
       }
     }),
+
+    subscribeToEvents() {
+      SocketApi.handleMessages((message) => {
+        console.log('message', message);
+        store.chats.handleMessage(message);
+      });
+    },
   }));

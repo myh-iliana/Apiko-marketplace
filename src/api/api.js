@@ -51,9 +51,6 @@ export const User = {
       phone,
       avatar,
       location,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('_token')}`,
-      },
     });
   },
 };
@@ -66,35 +63,19 @@ export const File = {
 
 export const Products = {
   fetchLatest() {
-    return axios.get('/api/products/latest', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('_token')}`,
-      },
-    });
+    return axios.get('/api/products/latest');
   },
 
   fetchSaved() {
-    return axios.get('/api/products/saved', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('_token')}`,
-      },
-    });
+    return axios.get('/api/products/saved');
   },
 
   fetchProduct(id) {
-    return axios.get(`/api/products/${id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('_token')}`,
-      },
-    });
+    return axios.get(`/api/products/${id}`);
   },
 
   fetchUserProducts(id) {
-    return axios.get(`/api/users/${id}/products`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('_token')}`,
-      },
-    });
+    return axios.get(`/api/users/${id}/products`);
   },
 
   save(id) {
@@ -112,9 +93,6 @@ export const Products = {
       photos,
       location,
       price,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('_token')}`,
-      },
     });
   },
 
@@ -125,11 +103,18 @@ export const Products = {
 
 export const Chats = {
   create(id, message) {
-    return axios.post(`/api/products/${id}/createChat`, {
-      message,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('_token')}`,
-      },
-    });
+    return axios.post(`/api/products/${id}/createChat`, { message });
+  },
+
+  getList() {
+    return axios.get('/api/chats');
+  },
+
+  sendMessage(id, message) {
+    return axios.post(`/api/chats/${id}/messages`, { message });
+  },
+
+  getMessages(id) {
+    return axios.get(`/api/chats/${id}/messages`);
   },
 };

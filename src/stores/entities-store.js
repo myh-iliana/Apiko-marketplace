@@ -1,11 +1,17 @@
-import { types as t } from 'mobx-state-tree';
+import { getRoot, types as t } from 'mobx-state-tree';
+import { normalize } from 'normalizr';
+
 import { productsCollection } from './products/products-collection';
 import { usersCollection } from './users/users-collection';
+import { chatsCollection } from './chats/chats-collection';
+import { messagesCollection } from './chats/messages-collection';
 
 export const EntitiesStore = t
   .model('EntitiesStore', {
     products: productsCollection,
     users: usersCollection,
+    chats: chatsCollection,
+    messages: messagesCollection,
   })
   .actions((store) => ({
     merge(entities) {
@@ -18,5 +24,13 @@ export const EntitiesStore = t
           store[collectionName].add(id, value);
         });
       });
+    },
+
+    normalize(items, schema) {
+      const { result, entities } = normalize(items, schema);
+
+      store.merge(entities);
+
+      return result;
     },
   }));
